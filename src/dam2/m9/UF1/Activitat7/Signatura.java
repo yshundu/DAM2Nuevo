@@ -1,7 +1,6 @@
 
 package dam2.m9.UF1.Activitat7;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
