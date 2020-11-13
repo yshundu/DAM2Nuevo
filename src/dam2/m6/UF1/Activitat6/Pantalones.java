@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package act6m6;
+package dam2.m6.UF1.Activitat6;
 
 import java.util.Arrays;
 import javax.xml.bind.annotation.XmlRootElement;

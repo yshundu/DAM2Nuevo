@@ -1,5 +1,5 @@
 
-package activititat7m9;
+package dam2.m9.UF1.Activitat7;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,7 +56,7 @@ public class Signatura {
         }
         //creem els arxius firma i missatge
         System.out.println("Introdueix el missatge a signar: ");
-        frase = sc.next();
+        frase = sc.nextLine();
         byte[] frases = frase.getBytes();
         byte[] firma = signData(frases, clauPrivada);
         

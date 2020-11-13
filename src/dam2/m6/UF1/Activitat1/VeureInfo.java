@@ -1,4 +1,5 @@
-package veureinfo;
+package dam2.m6.UF1.Activitat1;
+
 
 import java.io.*;
 

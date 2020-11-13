@@ -1,4 +1,4 @@
-package act4llegirxml;
+package dam2.m6.UF1.Activitat4;
 /**
  *
  * @author Yang

@@ -1,4 +1,4 @@
-package activitat4;
+package dam2.m9.UF1.Activitat4;
 
 import java.io.BufferedWriter;
 import java.io.File;

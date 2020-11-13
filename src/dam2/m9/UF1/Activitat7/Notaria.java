@@ -1,4 +1,4 @@
-package activititat7m9;
+package dam2.m9.UF1.Activitat7;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

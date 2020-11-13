@@ -1,4 +1,4 @@
-package activitat3;
+package dam2.m9.UF1.Activitat3;
 
 import java.security.MessageDigest;
 import java.util.Arrays;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package act5uf1;
+package dam2.m9.UF1.Activitat5;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;

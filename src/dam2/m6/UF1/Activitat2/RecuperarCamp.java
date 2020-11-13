@@ -1,4 +1,4 @@
-package cotxes;
+package dam2.m6.UF1.Activitat2;
 
 import java.io.*;
 import java.util.Scanner;

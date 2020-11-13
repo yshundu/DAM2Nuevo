@@ -1,4 +1,4 @@
-package ex3noaval;
+package dam2.m6.UF1.Activitat3;
 import java.io.*;
 public class LlegirFitxer {
     public static void main(String[] args) throws IOException {

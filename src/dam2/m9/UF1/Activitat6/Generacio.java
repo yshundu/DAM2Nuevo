@@ -1,4 +1,4 @@
-package m9act6;
+package dam2.m9.UF1.Activitat6;
 
 import java.io.FileOutputStream;
 import java.security.KeyPair;

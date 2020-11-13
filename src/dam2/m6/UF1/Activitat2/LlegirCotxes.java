@@ -1,5 +1,5 @@
 
-package cotxes;
+package dam2.m6.UF1.Activitat2;
 import java.io.*;
 public class LlegirCotxes {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
