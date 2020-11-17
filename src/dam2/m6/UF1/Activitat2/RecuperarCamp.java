@@ -7,7 +7,6 @@ public class RecuperarCamp {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
     Cotxes cotxes1;
     Scanner sc = new Scanner(System.in);
-    int acabado=0;
     int opcion;
     String seleccion;
     int ano;
