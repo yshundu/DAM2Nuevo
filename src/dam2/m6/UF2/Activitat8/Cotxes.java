@@ -15,16 +15,16 @@ public class Cotxes implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataIngres;
     private int anyMatriculacio;
-    private boolean esManual;
+    private boolean averiat;
 
     public Cotxes() {
     }
 
-    public Cotxes(String modelCotxes, Date dataIngres, int anyMatriculacio, boolean esManual) {
+    public Cotxes(String modelCotxes, Date dataIngres, int anyMatriculacio, boolean averiat) {
         this.modelCotxes = modelCotxes;
         this.dataIngres = dataIngres;
         this.anyMatriculacio = anyMatriculacio;
-        this.esManual = esManual;
+        this.averiat = averiat;
     }
 
     public long getId() {
@@ -43,12 +43,14 @@ public class Cotxes implements Serializable {
         return anyMatriculacio;
     }
 
-    public boolean isEsManual() {
-        return esManual;
+    public boolean isAveriat() {
+        return averiat;
     }
+
+
 
     @Override
     public String toString() {
-        return String.format("(%s, %d, %d, %b)", this.modelCotxes, this.dataIngres, this.anyMatriculacio, this.esManual);
+        return String.format("(%s, %s, %d, %b)", this.modelCotxes, this.dataIngres, this.anyMatriculacio, this.averiat);
     }
 }

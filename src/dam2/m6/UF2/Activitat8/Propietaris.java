@@ -49,6 +49,6 @@ public class Propietaris implements Serializable {
     
     @Override
     public String toString() {
-        return String.format("(%s, %d, %d, %b)", this.nom, this.fechaBaseDeDades, this.anys, this.cotxePersonal);
+        return String.format("(%s, %s, %d, %b)", this.nom, this.fechaBaseDeDades, this.anys, this.cotxePersonal);
     }
 }

@@ -20,7 +20,7 @@ public class Main {
         String modelCotxes;
         Date dataIngres;
         int anyMatriculacio;
-        boolean esManual;
+        boolean averiat;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("$objectdb/db/act8.odb");
@@ -36,9 +36,10 @@ public class Main {
             opcio = sc.nextInt();
             if(opcio==1){
                System.out.println("Introdueix nom:"); 
-               nom = sc.nextLine();
+               nom = sc.next();
                System.out.println("Introdueix data en la base de dades:"); 
-               fechaBaseDeDades = sdf.parse(fechaComText = sc.next());
+               fechaComText = sc.next();
+               fechaBaseDeDades = sdf.parse(fechaComText);
                System.out.println("Introdueix any:"); 
                anys = sc.nextInt();
                System.out.println("Es cotxe personal: "); 
@@ -48,15 +49,16 @@ public class Main {
                 em.persist(p);
                 }else if(opcio==2){
                System.out.println("Introdueix model cotxes:"); 
-               modelCotxes = sc.nextLine();
+               modelCotxes = sc.next();
                System.out.println("Introdueix data d'ingres del cotxe:"); 
-               dataIngres = sdf.parse(fechaComText = sc.next());
+               fechaComText = sc.next();
+               dataIngres = sdf.parse(fechaComText);
                System.out.println("Introdueix any matriculacio:"); 
                anyMatriculacio = sc.nextInt();
-               System.out.println("Es cotxe manual? "); 
-               esManual = sc.nextBoolean();
+               System.out.println("El cotxe esta averiat? "); 
+               averiat = sc.nextBoolean();
                
-                Cotxes c = new Cotxes(modelCotxes, dataIngres, anyMatriculacio, esManual);
+                Cotxes c = new Cotxes(modelCotxes, dataIngres, anyMatriculacio, averiat);
                 em.persist(c);
                 }else if(opcio==3){
                     acabado = 1;
@@ -66,20 +68,19 @@ public class Main {
         }
         em.getTransaction().commit();
 
-        // Find the number of Point objects in the database:
-        Query q1 = em.createQuery("SELECT COUNT(p) FROM Point p");
-        System.out.println("Total Points: " + q1.getSingleResult());
-
-        // Find the average X value:
-        Query q2 = em.createQuery("SELECT AVG(p.x) FROM Point p");
-        System.out.println("Average X: " + q2.getSingleResult());
-
         // Retrieve all the Point objects from the database:
-        TypedQuery<Point> query =
-            em.createQuery("SELECT p FROM Point p", Point.class);
-        List<Point> results = query.getResultList();
-        for (Point p : results) {
+        TypedQuery<Propietaris> query =
+            em.createQuery("SELECT p FROM Propietaris p", Propietaris.class);
+        List<Propietaris> results = query.getResultList();
+        for (Propietaris p : results) {
             System.out.println(p);
+        }
+        
+          TypedQuery<Cotxes> query2 =
+            em.createQuery("SELECT c FROM Cotxes c", Cotxes.class);
+        List<Cotxes> results2 = query2.getResultList();
+        for (Cotxes c : results2) {
+            System.out.println(c);
         }
 
         // Close the database connection:
