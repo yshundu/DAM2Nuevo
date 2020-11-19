@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws ParseException {
         // Open a database connection
         // (create a new database if it doesn't exist yet):
+        //Creem les variables
         Scanner sc = new Scanner(System.in);
         int acabado=0;
         int opcio=0;
@@ -21,12 +22,13 @@ public class Main {
         Date dataIngres;
         int anyMatriculacio;
         boolean averiat;
+        //Creem el format de les dades
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("$objectdb/db/act8.odb");
         EntityManager em = emf.createEntityManager();
 
-        // Store 1000 Point objects in the database:
+        //Utilitzem el bucle per guardar la informacio
         em.getTransaction().begin();
         while (acabado!=1){
             System.out.println("1. Introduir propietari.");
@@ -69,19 +71,43 @@ public class Main {
         em.getTransaction().commit();
 
         // Retrieve all the Point objects from the database:
+        System.out.println("Que vols mostrar:");
+        System.out.println("1. Propietaris");
+        System.out.println("2. Cotxes");
+        System.out.println("3. Mostrar tot");
+        int opcio2;
+        opcio2 =sc.nextInt();
+        
+        if (opcio2 == 1){
         TypedQuery<Propietaris> query =
             em.createQuery("SELECT p FROM Propietaris p", Propietaris.class);
         List<Propietaris> results = query.getResultList();
         for (Propietaris p : results) {
             System.out.println(p);
         }
-        
+        } else if (opcio==2){
           TypedQuery<Cotxes> query2 =
             em.createQuery("SELECT c FROM Cotxes c", Cotxes.class);
         List<Cotxes> results2 = query2.getResultList();
         for (Cotxes c : results2) {
             System.out.println(c);
         }
+        } else {
+         TypedQuery<Propietaris> query =
+        em.createQuery("SELECT p FROM Propietaris p", Propietaris.class);
+        List<Propietaris> results = query.getResultList();
+        for (Propietaris p : results) {
+            System.out.println(p);
+        }
+        
+        TypedQuery<Cotxes> query2 =
+           em.createQuery("SELECT c FROM Cotxes c", Cotxes.class);
+        List<Cotxes> results2 = query2.getResultList();
+        for (Cotxes c : results2) {
+            System.out.println(c);
+        }
+        }
+
 
         // Close the database connection:
         em.close();
