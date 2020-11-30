@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Activitat1NoExamen {
      public static void main(String[] args) throws ClassNotFoundException, SQLException{
          Scanner sc = new Scanner(System.in);
-         int opcio, id;
+         int sortida = 0,opcio, id;
         String nom;
         String dni;
         String dataNaixement;
@@ -44,6 +44,55 @@ public class Activitat1NoExamen {
          finally {
                 con.close();
         }
-        
+         
+         while (sortida != 1) {
+             System.out.println("Introdueix opció: ");
+             System.out.println("1. Insertar alumne");
+             System.out.println("2. Modificar alumne ");
+             System.out.println("3. Eliminar alumne ");
+             System.out.println("4. Acabar programa ");
+             
+             opcio = sc.nextInt();
+             
+             switch (opcio) {
+                 case 1:
+                    System.out.println("Introdueix el nom: ");
+                    nom = sc.nextLine();
+
+                    System.out.println("Introdueix DNI: ");
+                    dni = sc.nextLine();
+
+                    System.out.println("Introdueix data de naixement: (DD/MM/YYYY)");
+                    dataNaixement = sc.nextLine();
+
+                    System.out.println("Introdueix la adreça: ");
+                    adreca = sc.nextLine();
+
+                    System.out.println("Introdueix sexe: ");
+                    sexe = sc.nextLine();
+
+                    System.out.println("Introdueix codi postal: ");
+                    codiPostal = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.println("Introdueix poblacio: ");
+                    poblacio = sc.nextLine();
+                     break;
+                 case 2:
+                     break;
+                 case 3:
+                     break;
+                 case 4:
+                     sortida = 1;
+                     break;
+                 default:
+                     break;
+                         
+                }
+            }  
+         }
+     
+        private static void insertaAlumne(String nom, String dni, String dataNaixement, String adreca, String sexe, int codiPostal, String poblacio){
+                  
+              }
      }
-}
