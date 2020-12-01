@@ -17,6 +17,7 @@ import java.util.Scanner;
  */
 public class Activitat1NoExamen {
      static Connection con = null;
+     static Statement stmt;
      public static void main(String[] args) throws ClassNotFoundException, SQLException{
          Scanner sc = new Scanner(System.in);
          int sortida = 0,opcio;
@@ -71,7 +72,7 @@ public class Activitat1NoExamen {
                     System.out.println("Introdueix sexe: ");
                     sexe = sc.next();
                     //sc.nextLine();
-                    System.out.println("Introdueix codi postal: ");
+                    System.out.println("Introdueix codi postal (5 nombres): ");
                     codiPostal = sc.nextInt();
                     try {
                     insertaAlumne(nom,dni,dataNaixement,adreca,sexe,codiPostal);
@@ -83,6 +84,13 @@ public class Activitat1NoExamen {
                     }
                      break;
                  case 2:
+                     System.out.println("Introdueix el DNI de la persona a modificar: ");
+                     String dniModificacio = sc.next();
+                     try {
+                         modificaAlumne(dniModificacio);
+                     }catch(Exception e){
+                         e.printStackTrace();
+                     }
                      break;
                  case 3:
                      break;
@@ -99,7 +107,6 @@ public class Activitat1NoExamen {
          }
      
         private static void insertaAlumne(String nom, String dni, String dataNaixement, String adreca, String sexe, int codiPostal){
-                  Statement stmt;
                   try {
                          stmt = con.createStatement();
                          stmt.execute("INSERT INTO alumnes VALUES ('" + nom + "',' " + dni + "',' " + dataNaixement +
@@ -108,4 +115,12 @@ public class Activitat1NoExamen {
                         e.printStackTrace();
                     }
               }
+        private static void modificaAlumne(String dni){
+            try {
+                stmt = con.createStatement();
+                    stmt.execute();  
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+        }
      }
