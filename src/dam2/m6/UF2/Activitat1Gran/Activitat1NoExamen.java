@@ -7,6 +7,7 @@ package dam2.m6.UF2.Activitat1Gran;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -18,8 +19,8 @@ import java.util.Scanner;
 public class Activitat1NoExamen {
      static Connection con = null;
      static Statement stmt;
+     static Scanner sc = new Scanner(System.in);
      public static void main(String[] args) throws ClassNotFoundException, SQLException{
-         Scanner sc = new Scanner(System.in);
          int sortida = 0,opcio;
         String nom;
         String dni;
@@ -112,15 +113,57 @@ public class Activitat1NoExamen {
                          stmt.execute("INSERT INTO alumnes VALUES ('" + nom + "',' " + dni + "',' " + dataNaixement +
                                  "',' " + adreca + "',' " + sexe + "',' " + codiPostal + "')");
                     } catch(Exception e){
+                        System.out.println("Falla en la inserció de dades.");
+                        System.out.println("Comprova que existeix el codi postal en la base de dades POBLACIONS.");
                         e.printStackTrace();
                     }
               }
+        
         private static void modificaAlumne(String dni){
             try {
-                stmt = con.createStatement();
-                    stmt.execute();  
-                    } catch(Exception e){
-                        e.printStackTrace();
-                    }
+            ResultSet resultSet;
+            stmt = con.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"';");
+            String nom;
+            String dataNaixement;
+            String adreca;
+            String sexe;
+            int codiPostal;
+                
+            System.out.println("Nom["+resultSet.getString(1)+"]: ");
+            nom = sc.nextLine();
+            if (nom.length()!= 0){
+                stmt.execute("UPDATE alumnes SET nom = '" + nom + "' WHERE dni='"+dni+"';");
+            }
+            
+            System.out.println("DNI["+resultSet.getString(2)+"]. ");
+            
+            System.out.println("data Naixement["+resultSet.getString(3)+"]: (YYYY-MM-DD) ");
+            dataNaixement = sc.nextLine();
+            if (dataNaixement.length()!= 0){
+                stmt.execute("UPDATE alumnes SET dataNaixement = '" + dataNaixement + "' WHERE dni='"+dni+"';");
+            }
+            
+            System.out.println("Adreça["+resultSet.getString(4)+"]: ");
+            adreca = sc.nextLine();
+            if (adreca.length()!= 0){
+                stmt.execute("UPDATE alumnes SET adreca = '" + adreca + "' WHERE dni='"+dni+"';");
+            }
+            
+            System.out.println("sexe["+resultSet.getString(5)+"]:(Home o Dona) ");
+            sexe = sc.nextLine();
+            if (sexe.length()!= 0){
+                stmt.execute("UPDATE alumnes SET sexe = '" + sexe + "' WHERE dni='"+dni+"';");
+            }
+            
+            System.out.println("codiPostal["+resultSet.getString(6)+"]:(5 valors) ");
+            codiPostal = sc.nextInt();
+            if (sexe.length()!= 0){
+                stmt.execute("UPDATE alumnes SET codiPostal = '" + codiPostal + "' WHERE dni='"+dni+"';");
+            }
+            
+            } catch(Exception e){
+                   e.printStackTrace();
+              }
         }
      }
