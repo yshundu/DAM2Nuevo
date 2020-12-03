@@ -58,21 +58,20 @@ public class Activitat1NoExamen {
              switch (opcio) {
                  case 1:
                     System.out.println("Introdueix el nom: ");
-                    nom = sc.nextLine();
+                    nom = sc.next().trim();
 
                     System.out.println("Introdueix DNI: ");
-                    dni = sc.next();
-                    sc.nextLine();
+                    dni = sc.next().trim();
 
                     System.out.println("Introdueix data de naixement: (YYYY-MM-DD)");
-                    dataNaixement = sc.nextLine();
+                    dataNaixement = sc.next().trim();
 
                     System.out.println("Introdueix la adreça: ");
-                    adreca = sc.nextLine();
+                    adreca = sc.next().trim();
                     
                     System.out.println("Introdueix sexe: ");
-                    sexe = sc.next();
-                    //sc.nextLine();
+                    sexe = sc.next().trim();
+                    
                     System.out.println("Introdueix codi postal (5 nombres): ");
                     codiPostal = sc.nextInt();
                     try {
@@ -86,7 +85,7 @@ public class Activitat1NoExamen {
                      break;
                  case 2:
                      System.out.println("Introdueix el DNI de la persona a modificar: ");
-                     String dniModificacio = sc.next();
+                     String dniModificacio = sc.nextLine();
                      try {
                          modificaAlumne(dniModificacio);
                      }catch(Exception e){
@@ -110,8 +109,8 @@ public class Activitat1NoExamen {
         private static void insertaAlumne(String nom, String dni, String dataNaixement, String adreca, String sexe, int codiPostal){
                   try {
                          stmt = con.createStatement();
-                         stmt.execute("INSERT INTO alumnes VALUES ('" + nom + "',' " + dni + "',' " + dataNaixement +
-                                 "',' " + adreca + "',' " + sexe + "',' " + codiPostal + "')");
+                         stmt.execute("INSERT INTO alumnes VALUES ('"+ nom +"','"+dni+"','"+dataNaixement+
+                                 "','"+adreca+"','"+sexe+"','"+codiPostal+"')");
                     } catch(Exception e){
                         System.out.println("Falla en la inserció de dades.");
                         System.out.println("Comprova que existeix el codi postal en la base de dades POBLACIONS.");
@@ -122,21 +121,21 @@ public class Activitat1NoExamen {
         private static void modificaAlumne(String dni){
             try {
             ResultSet resultSet;
-            stmt = con.createStatement();
-            resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"';");
+            stmt = (Statement) con.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"'");
             String nom;
             String dataNaixement;
             String adreca;
             String sexe;
             int codiPostal;
-                
+            while(resultSet.next()){
             System.out.println("Nom["+resultSet.getString(1)+"]: ");
             nom = sc.nextLine();
             if (nom.length()!= 0){
                 stmt.execute("UPDATE alumnes SET nom = '" + nom + "' WHERE dni='"+dni+"';");
             }
             
-            System.out.println("DNI["+resultSet.getString(2)+"]. ");
+            //System.out.println("DNI["+resultSet.getString(2)+"]. ");
             
             System.out.println("data Naixement["+resultSet.getString(3)+"]: (YYYY-MM-DD) ");
             dataNaixement = sc.nextLine();
@@ -161,9 +160,10 @@ public class Activitat1NoExamen {
             if (sexe.length()!= 0){
                 stmt.execute("UPDATE alumnes SET codiPostal = '" + codiPostal + "' WHERE dni='"+dni+"';");
             }
-            
+            }
             } catch(Exception e){
                    e.printStackTrace();
               }
+         }
         }
-     }
+
