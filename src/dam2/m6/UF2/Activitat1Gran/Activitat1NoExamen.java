@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +30,7 @@ public class Activitat1NoExamen {
         String adreca;
         String sexe;
         int codiPostal;
-        String poblacio;
+        //String poblacio;
         
         //Connection con = null;
 
@@ -93,10 +95,20 @@ public class Activitat1NoExamen {
                      }
                      break;
                  case 3:
+                     System.out.println("Introdueix el DNI de la persona a eliminar: ");
+                     String dniEliminar = sc.nextLine();
+                     try {
+                         eliminaAlumne(dniEliminar);
+                     }catch(Exception e){
+                         e.printStackTrace();
+                     }
                      break;
                  case 4:
                      sortida = 1;
                      System.out.println("Programa acabat.");
+                     con.close();
+                     sc.close();
+                     stmt.close();
                      break;
                  default:
                      System.out.println("Opció no vàlida");
@@ -168,5 +180,25 @@ public class Activitat1NoExamen {
                    e.printStackTrace();
               }
          }
+        
+        private static void eliminaAlumne(String dniEliminar){
+         try {
+             ResultSet resultSet;
+             boolean comprovar;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dniEliminar +"'");
+             
+             comprovar = resultSet.next();
+             
+             if (comprovar == false) {
+                 System.out.println("No existeix el alumne");
+             } else {
+                 stmt.executeUpdate("DELETE FROM alumnes WHERE id ='"+ dniEliminar+"'");
+                 System.out.println("Alumne eliminat correctament.");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+        }
         }
 
