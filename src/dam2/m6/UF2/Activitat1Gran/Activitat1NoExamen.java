@@ -123,44 +123,47 @@ public class Activitat1NoExamen {
             ResultSet resultSet;
             stmt = (Statement) con.createStatement();
             resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"'");
-            String nom;
-            String dataNaixement;
-            String adreca;
-            String sexe;
-            int codiPostal;
+            String nom = null;
+            String dataNaixement = null;
+            String adreca = null;
+            String sexe = null;
+            String codiPostal = null;
             while(resultSet.next()){
             System.out.println("Nom["+resultSet.getString(1)+"]: ");
             nom = sc.nextLine();
-            if (nom.length()!= 0){
-                stmt.execute("UPDATE alumnes SET nom = '" + nom + "' WHERE dni='"+dni+"';");
+            if (nom.length() == 0){
+                nom = resultSet.getString(1);
             }
-            
             //System.out.println("DNI["+resultSet.getString(2)+"]. ");
             
             System.out.println("data Naixement["+resultSet.getString(3)+"]: (YYYY-MM-DD) ");
             dataNaixement = sc.nextLine();
-            if (dataNaixement.length()!= 0){
-                stmt.execute("UPDATE alumnes SET dataNaixement = '" + dataNaixement + "' WHERE dni='"+dni+"';");
+            if (dataNaixement.length() == 0){
+                dataNaixement = resultSet.getString(3);
             }
             
             System.out.println("Adreça["+resultSet.getString(4)+"]: ");
             adreca = sc.nextLine();
-            if (adreca.length()!= 0){
-                stmt.execute("UPDATE alumnes SET adreca = '" + adreca + "' WHERE dni='"+dni+"';");
+            if (adreca.length() == 0){
+                adreca = resultSet.getString(4);
             }
             
             System.out.println("sexe["+resultSet.getString(5)+"]:(Home o Dona) ");
             sexe = sc.nextLine();
-            if (sexe.length()!= 0){
-                stmt.execute("UPDATE alumnes SET sexe = '" + sexe + "' WHERE dni='"+dni+"';");
+            if (sexe.length() == 0){
+                sexe = resultSet.getString(5);
             }
             
             System.out.println("codiPostal["+resultSet.getString(6)+"]:(5 valors) ");
-            codiPostal = sc.nextInt();
-            if (sexe.length()!= 0){
-                stmt.execute("UPDATE alumnes SET codiPostal = '" + codiPostal + "' WHERE dni='"+dni+"';");
+            codiPostal = sc.nextLine();
+            if (codiPostal.length() == 0){
+                codiPostal = resultSet.getString(6);
+                //stmt.execute("UPDATE alumnes SET codiPostal = '" + codiPostal + "' WHERE dni='"+dni+"';");
             }
             }
+            stmt.execute("UPDATE alumnes SET nom='"+nom+"',dataNaixement='"+dataNaixement+
+                    "',adreca='"+adreca+"',sexe ='"+sexe+ "',codiPostal = " + codiPostal+
+                    " WHERE dni='"+dni+"';");
             } catch(Exception e){
                    e.printStackTrace();
               }
