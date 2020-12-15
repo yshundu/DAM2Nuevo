@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dam2.m6.UF2.Activitat1Gran;
 
 import java.sql.Connection;
@@ -11,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,9 +23,6 @@ public class Activitat1NoExamen {
         String adreca;
         String sexe;
         int codiPostal;
-        //String poblacio;
-        
-        //Connection con = null;
 
          try {
             String url = "jdbc:mysql://localhost:3306/m6uf2";
@@ -52,7 +42,9 @@ public class Activitat1NoExamen {
              System.out.println("1. Insertar alumne");
              System.out.println("2. Modificar alumne ");
              System.out.println("3. Eliminar alumne ");
-             System.out.println("4. Acabar programa ");
+             System.out.println("4. Insertar població ");
+             System.out.println("5. Eliminar població ");
+             System.out.println("6. Acabar programa ");
              
              opcio = sc.nextInt();
              sc.nextLine();
@@ -60,19 +52,19 @@ public class Activitat1NoExamen {
              switch (opcio) {
                  case 1:
                     System.out.println("Introdueix el nom: ");
-                    nom = sc.next().trim();
+                    nom = sc.nextLine().trim();
 
                     System.out.println("Introdueix DNI: ");
-                    dni = sc.next().trim();
+                    dni = sc.nextLine().trim();
 
                     System.out.println("Introdueix data de naixement: (YYYY-MM-DD)");
-                    dataNaixement = sc.next().trim();
+                    dataNaixement = sc.nextLine().trim();
 
                     System.out.println("Introdueix la adreça: ");
-                    adreca = sc.next().trim();
+                    adreca = sc.nextLine().trim();
                     
-                    System.out.println("Introdueix sexe: ");
-                    sexe = sc.next().trim();
+                    System.out.println("Introdueix sexe: (Home o Dona)");
+                    sexe = sc.nextLine().trim();
                     
                     System.out.println("Introdueix codi postal (5 nombres): ");
                     codiPostal = sc.nextInt();
@@ -80,9 +72,9 @@ public class Activitat1NoExamen {
                     insertaAlumne(nom,dni,dataNaixement,adreca,sexe,codiPostal);
                     }
                     catch (Exception e){
+                        e.printStackTrace();
                         System.out.println("Falla en la inserció de dades.");
                         System.out.println("Comprova que existeix el codi postal en la base de dades POBLACIONS.");
-                        e.printStackTrace();
                     }
                      break;
                  case 2:
@@ -104,6 +96,24 @@ public class Activitat1NoExamen {
                      }
                      break;
                  case 4:
+                     String poblacioAux;
+                     int codiPostalAux;
+                    System.out.println("Introdueix el nom de la poblacio: ");
+                    poblacioAux = sc.next().trim();
+
+                    System.out.println("Introdueix codi postal: (5 valors)");
+                    codiPostalAux = sc.nextInt();
+                    
+                    insertaPoblacio(codiPostalAux, poblacioAux);
+                     break;
+                case 5:
+                    int codiPostalEliminar;
+                    System.out.println("Introdueix el codi postal de la poblacio a eliminar:"
+                            + " (Es eliminaran tots els alumnes amb codi postal associat)");
+                    codiPostalEliminar = sc.nextInt();
+                    eliminaPoblacio(codiPostalEliminar);
+                     break;
+                case 6:
                      sortida = 1;
                      System.out.println("Programa acabat.");
                      con.close();
@@ -195,6 +205,53 @@ public class Activitat1NoExamen {
              } else {
                  stmt.executeUpdate("DELETE FROM alumnes WHERE id ='"+ dniEliminar+"'");
                  System.out.println("Alumne eliminat correctament.");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+        }
+        
+        private static void insertaPoblacio(int codiPostal, String poblacio){
+            try {
+                    stmt = con.createStatement();
+                    stmt.execute("INSERT INTO poblacions VALUES ('"+codiPostal+"','"+poblacio+"')");
+            } catch(Exception e){
+                    System.out.println("Falla en la inserció de dades.");
+                    System.out.println("Comprova la longitud del codi postal");
+                     e.printStackTrace();
+                    }
+        }
+        
+        private static void eliminaPoblacio (int codiPostal) {
+            try {
+             ResultSet resultSet;
+             ResultSet resultSet2;
+             int opcion=0;
+             boolean comprovar;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM poblacions WHERE codiPostal = '"+codiPostal+"'");
+             comprovar = resultSet.next();
+             
+             if (comprovar == false) {
+                 System.out.println("No existeix la població");
+             } else {
+                 System.out.println("Els seguents alumnes seran eliminades, vols continuar?");
+                 resultSet2 = stmt.executeQuery("SELECT * FROM alumnes WHERE codiPostal ='"+codiPostal+"'");
+                 
+                 while(resultSet2.next()){
+                     System.out.println(resultSet2.getString(1));
+                 }
+                 System.out.println("Si (1) o No (2)?");
+                 opcion = sc.nextInt();
+                 if (opcion==1){
+                 stmt.executeUpdate("DELETE FROM poblacions WHERE codiPostal ='"+codiPostal+"'");
+                 System.out.println("Població eliminada correctament.");
+                 } else if (opcion==2){
+                 System.out.println("Modificació revertida correctament.");    
+                 } else {
+                     System.out.println("Opció no vàlida, siusplau introdueix un"
+                             + " 1 en cas de sí o introdueix un 2 en cas de no.");
+                 }
              }
          } catch (Exception e) {
              e.printStackTrace();
