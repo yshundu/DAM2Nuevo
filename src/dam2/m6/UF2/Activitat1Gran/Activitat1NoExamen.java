@@ -55,7 +55,8 @@ public class Activitat1NoExamen {
              opcio = sc.nextInt();
              sc.nextLine();
              
-             //Agafem els valors per afegir el alumne
+             //Agafem els valors per afegir el alumne i
+             //utilitzem el trim per no agafar espais en blanc
              switch (opcio) {
                  case 1:
                     System.out.println("Introdueix el nom: ");
@@ -88,6 +89,7 @@ public class Activitat1NoExamen {
                  case 2:
                      System.out.println("Introdueix el DNI de la persona a modificar: ");
                      String dniModificacio = sc.nextLine();
+                     //Utilitzem el metode creat
                      try {
                          //Utilitzem el metode creat
                          modificaAlumne(dniModificacio);
@@ -98,6 +100,7 @@ public class Activitat1NoExamen {
                  case 3:
                      System.out.println("Introdueix el DNI de la persona a eliminar: ");
                      String dniEliminar = sc.nextLine();
+                     //Utilitzem el metode creat
                      try {
                          //Utilitzem el metode creat
                          eliminaAlumne(dniEliminar);
@@ -145,6 +148,7 @@ public class Activitat1NoExamen {
                     llistaPoblacioTots();
                     break;
                 case 0:
+                    //Activem la condicional per sortir del bucle i acabar programa.
                      sortida = 1;
                      System.out.println("Programa acabat.");
                      con.close();
@@ -173,6 +177,7 @@ public class Activitat1NoExamen {
               }
         //Metode per modificar un camp o varies d'un alumne
         private static void modificaAlumne(String dni){
+            //Comprovem si existeix el alumne
             try {
             ResultSet resultSet;
              boolean comprovar;
@@ -191,10 +196,10 @@ public class Activitat1NoExamen {
             String adreca = null;
             String sexe = null;
             String codiPostal = null;
-            //Comprovem que si no inserim res no es canvi
             while(resultSet.next()){
             System.out.println("Nom["+resultSet.getString(1)+"]: ");
             nom = sc.nextLine();
+            //Comprovem que si no inserim res no faci cap canvi
             if (nom.length() == 0){
                 nom = resultSet.getString(1);
             }
