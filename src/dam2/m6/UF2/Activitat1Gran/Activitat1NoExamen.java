@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Yang
+ * @author Yangshun Zhan Du
  */
 public class Activitat1NoExamen {
      static Connection con = null;
@@ -131,8 +131,18 @@ public class Activitat1NoExamen {
                     llistaAlumne(dniLlistar);
                     break;
                 case 7:
-                    System.out.println("Llistant totes les alumnes...");
+                    System.out.println("Llistant tots els alumnes...");
                     llistaAlumnesTots();
+                    break;
+                case 8:
+                    int codiPostalLlista;
+                    System.out.println("Introdueix codi postal per llistal població: ");
+                    codiPostalLlista = sc.nextInt();
+                    llistaPoblacio(codiPostalLlista);
+                    break;
+                case 9:
+                    System.out.println("Llistant totes les poblacions");
+                    llistaPoblacioTots();
                     break;
                 case 0:
                      sortida = 1;
@@ -165,6 +175,15 @@ public class Activitat1NoExamen {
         private static void modificaAlumne(String dni){
             try {
             ResultSet resultSet;
+             boolean comprovar;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"'");
+             
+             comprovar = resultSet.next();
+             
+             if (comprovar == false) {
+                 System.out.println("No existeix el alumne");
+             } else {
             stmt = (Statement) con.createStatement();
             resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"'");
             String nom = null;
@@ -209,6 +228,7 @@ public class Activitat1NoExamen {
             stmt.execute("UPDATE alumnes SET nom='"+nom+"',dataNaixement='"+dataNaixement+
                     "',adreca='"+adreca+"',sexe ='"+sexe+ "',codiPostal = " + codiPostal+
                     " WHERE dni='"+dni+"';");
+            }
             } catch(Exception e){
                    e.printStackTrace();
               }
@@ -284,8 +304,17 @@ public class Activitat1NoExamen {
         }
         //Metode per llistar 1 alumne
         private static void llistaAlumne (String dni) {
-         try {
+             try {
              ResultSet resultSet;
+             boolean comprovar;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '" + dni +"'");
+             
+             comprovar = resultSet.next();
+             
+             if (comprovar == false) {
+                 System.out.println("No existeix el alumne");
+             } else {
              stmt = (Statement) con.createStatement();
              resultSet = stmt.executeQuery("SELECT * FROM alumnes WHERE dni = '"+dni+"'");
              System.out.println("NOM-------DNI----DATANAIXEMENT--ADREÇA------SEXE---CODIPOSTAL");
@@ -294,7 +323,8 @@ public class Activitat1NoExamen {
                  System.out.println(resultSet.getString(1)+"  "+resultSet.getString(2)+"  "+resultSet.getString(3)+
                          "  "+resultSet.getString(4)+"  "+resultSet.getString(5)+"  "+resultSet.getString(6)+"  ");
              }
-         } catch (Exception e) {
+             }
+                  } catch (Exception e) {
              e.printStackTrace();
          }
         } 
@@ -309,6 +339,46 @@ public class Activitat1NoExamen {
              while (resultSet.next()){
                  System.out.println(resultSet.getString(1)+"  "+resultSet.getString(2)+"  "+resultSet.getString(3)+
                          "  "+resultSet.getString(4)+"  "+resultSet.getString(5)+"  "+resultSet.getString(6)+"  ");
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+        }
+        //Metode per llistar 1 poblacio
+        private static void llistaPoblacio(int codiPostal){
+            try {
+             ResultSet resultSet;
+             boolean comprovar;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM poblacions WHERE codiPostal = '" + codiPostal +"'");
+             
+             comprovar = resultSet.next();
+             
+             if (comprovar == false) {
+                 System.out.println("No existeix la població");
+             } else {
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM poblacions WHERE codiPostal = '"+codiPostal+"'");
+             System.out.println("CP-------POBLACIO");
+             
+             while (resultSet.next()){
+                 System.out.println(resultSet.getString(1)+"   "+resultSet.getString(2)+"  ");
+             }
+             }
+            } catch (Exception e) {
+             e.printStackTrace();
+         }
+        }
+        //Metode per llistar totes les poblacions
+        private static void llistaPoblacioTots(){
+         try {
+             ResultSet resultSet;
+             stmt = (Statement) con.createStatement();
+             resultSet = stmt.executeQuery("SELECT * FROM poblacions");
+             System.out.println("CP-------POBLACIO");
+             
+             while (resultSet.next()){
+                 System.out.println(resultSet.getString(1)+"   "+resultSet.getString(2)+"  ");
              }
          } catch (Exception e) {
              e.printStackTrace();
