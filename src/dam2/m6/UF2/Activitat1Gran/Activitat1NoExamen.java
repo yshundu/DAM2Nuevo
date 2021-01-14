@@ -251,7 +251,7 @@ public class Activitat1NoExamen {
              if (comprovar == false) {
                  System.out.println("No existeix el alumne");
              } else {
-                 stmt.executeUpdate("DELETE FROM alumnes WHERE id ='"+ dniEliminar+"'");
+                 stmt.executeUpdate("DELETE FROM alumnes WHERE dni ='"+ dniEliminar+"'");
                  System.out.println("Alumne eliminat correctament.");
              }
          } catch (Exception e) {
