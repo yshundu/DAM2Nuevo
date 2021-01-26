@@ -14,11 +14,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Act4Ap1 {
     public static void main(String[] args) throws InterruptedException {
         //La quantitat de fills
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
         //Guardem una llista amb les tasques
         List<Client> llistaTasques = new ArrayList<Client>();
         //Creem les 50 clients
-        for (int i=1;i<=50;i++) {
+        for (int i=1;i<=5;i++) {
             //Aleatori de les quantitats i ho afegim al constructor
             int cantitatArticles = (int) (Math.random() * 30 + 1);
             Client client = new Client(cantitatArticles, i);
@@ -31,6 +31,7 @@ public class Act4Ap1 {
         }
         List <Future<Integer>> llistaResultats;
         llistaResultats = executor.invokeAll(llistaTasques);
+        executor.shutdown(); 
     }
     
 }

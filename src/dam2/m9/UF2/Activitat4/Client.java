@@ -51,14 +51,14 @@ public class Client implements Callable<Integer>{
     public Integer call() throws Exception {
         System.out.println("Client " + getNumClient() + " passa per caixa...");
         //int tempsAleatori;
-          for (int j = 0; j < articles + 1; j++) {
+          for (int j = 0; j <= articles; j++) {
                 //tempsAleatori = (int) (Math.random() * (6 - 0 + 1));
                 try {
                     Thread.sleep(getArrayArticles()[j] * 500);
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (j == articles) {
+                if (j == articles-1) {
                     //Si la tasca s'ha acabat
                     System.out.println("Client " + numClient + " article " + j + "/" + articles + " (" + getArrayArticles()[j] + " segons) FINALITZAT");
                 }else{
@@ -66,7 +66,7 @@ public class Client implements Callable<Integer>{
                     System.out.println("Client " + numClient + " article " + j + "/" + articles + " (" + getArrayArticles()[j] + " segons)");
                 }
             }
-        return 1;
+        return 0;
         
     }
 }
