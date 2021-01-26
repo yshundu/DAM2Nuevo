@@ -36,6 +36,9 @@ public class Client implements Callable<Integer>{
 
     @Override
     public Integer call() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i=0;i<articles;i++){
+            System.out.println(arrayArticles[i]);
+        }
+        return 0;
     }
 }
