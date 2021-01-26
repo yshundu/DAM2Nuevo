@@ -60,7 +60,8 @@ public class Client implements Callable<Integer>{
                 }
                 if (j == articles-1) {
                     //Si la tasca s'ha acabat
-                    System.out.println("Client " + numClient + " article " + j + "/" + articles + " (" + getArrayArticles()[j] + " segons) FINALITZAT");
+                    System.out.println("Client " + numClient + " article " + j + "/" + articles + " (" + getArrayArticles()[j] + " segons)");
+                    System.out.println("Client "+ numClient +" FINALITZAT");
                 }else{
                     //Sino
                     System.out.println("Client " + numClient + " article " + j + "/" + articles + " (" + getArrayArticles()[j] + " segons)");
