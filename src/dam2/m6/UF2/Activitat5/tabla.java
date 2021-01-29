@@ -5,6 +5,7 @@
  */
 package dam2.m6.UF2.Activitat5;
 
+import javax.swing.JOptionPane;
 /**
  *
  * @author Yang
@@ -14,6 +15,13 @@ public class tabla extends javax.swing.JFrame {
     /**
      * Creates new form tabla
      */
+    int filaClicada = -1;
+    int columnaClicada = -1;
+    int filaFinal = -1;
+    int columnaFinal = -1;
+    boolean jugO = true;
+    boolean jugX = false;
+    
     public tabla() {
         initComponents();
     }
@@ -27,15 +35,20 @@ public class tabla extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        bSortir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Sortir");
+        bSortir.setText("Sortir");
+        bSortir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSortirActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"X", null, "X", null, "X", null, "X", null},
                 {null, "X", null, "X", null, "X", null, "X"},
@@ -50,7 +63,12 @@ public class tabla extends javax.swing.JFrame {
                 "Columna1", "Columna2", "Columna3", "Columna4", "Columna5", "Columna6", "Columna7", "Columna8"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,7 +76,7 @@ public class tabla extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(166, 166, 166)
-                .addComponent(jButton1)
+                .addComponent(bSortir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
@@ -69,7 +87,7 @@ public class tabla extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(bSortir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -77,6 +95,38 @@ public class tabla extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSortirActionPerformed
+         PartidaNova pNova = new PartidaNova();
+        pNova.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bSortirActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int columna = obtenirColumnaClicada();
+        int fila = obtenirFilaClicada(); 
+        
+        if(noHiHaOrigen()){
+            if(jugO && esO(fila, columna)){
+                actualitzaNouOrigen(fila,columna);
+                
+            } else if (jugX && esX(fila, columna)){
+                actualitzaNouOrigen(fila, columna); 
+            } else {
+                mostrarError();
+            }
+        } else {
+            if(movimentValid(fila, columna)){
+                if(esBuit(fila, columna) || ocupatContrari(fila, columna)){
+                    mou(fila, columna);
+                    guanyador(fila, columna);
+                } else if (ocupatPropi(fila, columna)){
+                    actualitzaNouOrigen(fila, columna);
+                }
+            } else {
+                mostraErrorMoviment();
+            }
+    }//GEN-LAST:event_tableMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -113,8 +163,81 @@ public class tabla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bSortir;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
+
+    private int obtenirFilaClicada() {
+        return table.getSelectedRow();
+    }
+
+    private int obtenirColumnaClicada() {
+       return table.getSelectedColumn();
+    }
+
+    private boolean noHiHaOrigen() {
+        boolean noOrigen = false;
+        if(filaClicada == -1 || columnaClicada == -1) {
+            noOrigen = true;
+        }
+        return noOrigen;
+    }
+
+    private boolean esO(int fila, int columna) {
+        boolean esO = false;
+        
+        if(table.getValueAt(fila, columna) == "O"){
+            esO = true;            
+        }
+        return esO;
+    }
+
+    private boolean esX(int fila, int columna) {
+        boolean esX = false;
+        if(table.getValueAt(fila, columna) == "X"){
+            esX = true;
+        }
+        return esX;
+    }
+
+    private void actualitzaNouOrigen(int fila, int columna) {
+        filaClicada = fila;
+        columnaClicada = columna;
+    }
+
+    private void mostrarError() {
+        JOptionPane.showMessageDialog(null, "Error", "Dames error", 
+                JOptionPane.ERROR_MESSAGE);
+        filaClicada = -1;
+        columnaClicada = -1;
+    }
+
+    private boolean movimentValid(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean esBuit(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean ocupatContrari(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void mou(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void guanyador(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean ocupatPropi(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void mostraErrorMoviment() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
