@@ -19,8 +19,8 @@ public class tabla extends javax.swing.JFrame {
     int columnaClicada = -1;
     int filaFinal = -1;
     int columnaFinal = -1;
-    boolean jugO = true;
-    boolean jugX = false;
+    boolean jugaO = true;
+    boolean jugaX = false;
     
     public tabla() {
         initComponents();
@@ -96,7 +96,7 @@ public class tabla extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSortirActionPerformed
-         PartidaNova pNova = new PartidaNova();
+        PartidaNova pNova = new PartidaNova();
         pNova.setVisible(true);
         dispose();
     }//GEN-LAST:event_bSortirActionPerformed
@@ -106,10 +106,10 @@ public class tabla extends javax.swing.JFrame {
         int fila = obtenirFilaClicada(); 
         
         if(noHiHaOrigen()){
-            if(jugO && esO(fila, columna)){
+            if(jugaO && esO(fila, columna)){
                 actualitzaNouOrigen(fila,columna);
                 
-            } else if (jugX && esX(fila, columna)){
+            } else if (jugaX && esX(fila, columna)){
                 actualitzaNouOrigen(fila, columna); 
             } else {
                 mostrarError();
@@ -118,7 +118,7 @@ public class tabla extends javax.swing.JFrame {
             if(movimentValid(fila, columna)){
                 if(esBuit(fila, columna) || ocupatContrari(fila, columna)){
                     mou(fila, columna);
-                    guanyador(fila, columna);
+                    gameOver(fila, columna);
                 } else if (ocupatPropi(fila, columna)){
                     actualitzaNouOrigen(fila, columna);
                 }
@@ -126,7 +126,7 @@ public class tabla extends javax.swing.JFrame {
                 mostraErrorMoviment();
             }
     }//GEN-LAST:event_tableMouseClicked
-    
+    }
     /**
      * @param args the command line arguments
      */
@@ -156,6 +156,7 @@ public class tabla extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new tabla().setVisible(true);
             }
@@ -214,30 +215,97 @@ public class tabla extends javax.swing.JFrame {
     }
 
     private boolean movimentValid(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean movimentValid = false;
+        
+        //per a comprobar el moviment de la dama
+        int comprobacioMovCol = columna - columnaClicada;
+        int comprobacioMovFil = fila - filaClicada;
+        
+        //comprovem el moviment de O 
+        if(jugaO && (comprobacioMovFil == -1) && ((comprobacioMovCol == 1) || (comprobacioMovCol == -1))){
+           movimentValid = true;
+        } else if (jugaX && (comprobacioMovFil == 1) && ((comprobacioMovCol == 1) || (comprobacioMovCol == -1))) {
+           movimentValid = true;
+        }
+        return movimentValid;
     }
 
     private boolean esBuit(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean esBuit = false;
+        if(table.getValueAt(fila, columna) == null){
+            esBuit = true;
+        }
+        return esBuit;
     }
 
     private boolean ocupatContrari(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean esOcupatCont = false;
+        if((jugaO == true && esX(fila,columna) == true) || 
+                (jugaX == true && esO(fila,columna) == true)){
+            esOcupatCont = true;
+        }
+        return esOcupatCont;
     }
 
     private void mou(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int sortida = 0;
+        table.setValueAt(null, filaClicada, columnaClicada);
+        //começarem amb el jugador O
+        //comprobar codi funcionalitat
+        if(jugaO){
+            table.setValueAt("O", fila, columna);
+            columnaClicada = -1;
+            filaClicada = -1;
+            if(sortida == 0){
+                sortida = 1;
+                jugaO = false;
+                jugaX = true;
+            }
+        }else{
+            table.setValueAt("X", fila, columna);
+            columnaClicada = -1;
+            filaClicada = -1;
+            if(sortida == 0){
+                sortida = 1;
+                jugaO = true;
+                jugaX = false;
+            }
+            sortida = 0;
+        }
     }
 
-    private void guanyador(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     private boolean ocupatPropi(int fila, int columna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean esOcupatPropi = false;
+        if((jugaO == true && esO(fila,columna) == true) || 
+                (jugaX == true && esX(fila,columna) == true)){
+            esOcupatPropi = true;
+        }
+        return esOcupatPropi;
     }
 
     private void mostraErrorMoviment() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(null, "Moviment no vàlid", "Error dames", 
+                JOptionPane.ERROR_MESSAGE);
+        filaClicada = -1;
+        columnaClicada = -1;
+    }
+
+    private void gameOver(int fila, int columna) {
+        if(esO(fila, columna) && fila == 0){
+            JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
+                    "GAME OVER", 
+                JOptionPane.PLAIN_MESSAGE);
+            PartidaNova partidaNova = new PartidaNova();
+            partidaNova.setVisible(true);
+            dispose();
+        } else if (esX(fila, columna) && fila == 7){
+            JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
+                    "GAME OVER", 
+                JOptionPane.PLAIN_MESSAGE);
+            PartidaNova partidaNova = new PartidaNova();
+            partidaNova.setVisible(true);
+            dispose();
+        }
     }
 }

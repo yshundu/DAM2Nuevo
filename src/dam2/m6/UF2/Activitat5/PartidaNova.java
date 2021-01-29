@@ -73,8 +73,9 @@ public class PartidaNova extends javax.swing.JFrame {
     
     
     private void bNovaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNovaPartidaActionPerformed
-        JFrame tablas = new tabla();
-        tablas.setVisible(true);
+        tabla tPartida = new tabla();
+        tPartida.setVisible(true);
+        dispose(); 
     }//GEN-LAST:event_bNovaPartidaActionPerformed
 
     /**
