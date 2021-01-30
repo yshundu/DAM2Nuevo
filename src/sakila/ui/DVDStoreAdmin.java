@@ -8,7 +8,7 @@ package sakila.ui;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import java.util.List;
-import sakila.util.HibernateUtil;
+import dam2.m6.UF2.Activitat5.HibernateUtil;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import sakila.entity.Actor;

@@ -328,7 +328,7 @@ public class tabla extends javax.swing.JFrame {
             partidaNova.setVisible(true);
             dispose();
         } else if (esX(fila, columna) && contadorO == 0){
-            JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
+            JOptionPane.showMessageDialog(null, "Les dames X han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
             PartidaNova partidaNova = new PartidaNova();
