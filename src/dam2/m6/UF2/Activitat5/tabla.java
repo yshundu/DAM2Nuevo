@@ -15,6 +15,8 @@ public class tabla extends javax.swing.JFrame {
     /**
      * Creates new form tabla
      */
+    int contadorX = 8;
+    int contadorO = 8;
     int filaClicada = -1;
     int columnaClicada = -1;
     int filaFinal = -1;
@@ -116,8 +118,12 @@ public class tabla extends javax.swing.JFrame {
             }
         } else {
             if(movimentValid(fila, columna)){
+                if(ocupatContrari(fila, columna)){
+                    
+                }
                 if(esBuit(fila, columna) || ocupatContrari(fila, columna)){
                     mou(fila, columna);
+                    jocAcabadaPerEliminacio(fila,columna);
                     gameOver(fila, columna);
                 } else if (ocupatPropi(fila, columna)){
                     actualitzaNouOrigen(fila, columna);
@@ -208,7 +214,7 @@ public class tabla extends javax.swing.JFrame {
     }
 
     private void mostrarError() {
-        JOptionPane.showMessageDialog(null, "Error", "Dames error", 
+        JOptionPane.showMessageDialog(null, "Error ", "Dames", 
                 JOptionPane.ERROR_MESSAGE);
         filaClicada = -1;
         columnaClicada = -1;
@@ -240,8 +246,12 @@ public class tabla extends javax.swing.JFrame {
 
     private boolean ocupatContrari(int fila, int columna) {
         boolean ocupadaContrari = false;
-        if((jugaO == true && esX(fila,columna) == true) || 
-                (jugaX == true && esO(fila,columna) == true)){
+        if ((jugaO == true && esX(fila,columna) == true)) {
+            contadorX--;
+            ocupadaContrari = true;
+        }
+        else if((jugaX == true && esO(fila,columna) == true)){
+            contadorO--;
             ocupadaContrari = true;
         }
         return ocupadaContrari;
@@ -308,4 +318,23 @@ public class tabla extends javax.swing.JFrame {
             dispose();
         }
     }
+    
+    private void jocAcabadaPerEliminacio(int fila, int columna) {
+        if(esO(fila, columna) && contadorX == 0){
+            JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
+                    "GAME OVER", 
+                JOptionPane.PLAIN_MESSAGE);
+            PartidaNova partidaNova = new PartidaNova();
+            partidaNova.setVisible(true);
+            dispose();
+        } else if (esX(fila, columna) && contadorO == 0){
+            JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
+                    "GAME OVER", 
+                JOptionPane.PLAIN_MESSAGE);
+            PartidaNova partidaNova = new PartidaNova();
+            partidaNova.setVisible(true);
+            dispose();
+        }
+    }
+    
 }
