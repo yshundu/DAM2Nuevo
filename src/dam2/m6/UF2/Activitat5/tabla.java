@@ -217,14 +217,14 @@ public class tabla extends javax.swing.JFrame {
     private boolean movimentValid(int fila, int columna) {
         boolean movimentValid = false;
         
-        //per a comprobar el moviment de la dama
-        int comprobacioMovCol = columna - columnaClicada;
-        int comprobacioMovFil = fila - filaClicada;
+        //Comprovació de moviment vàlid
+        int cMovimentColumna = columna - columnaClicada;
+        int cMovimentFila = fila - filaClicada;
         
         //comprovem el moviment de O 
-        if(jugaO && (comprobacioMovFil == -1) && ((comprobacioMovCol == 1) || (comprobacioMovCol == -1))){
+        if(jugaO && (cMovimentFila == -1) && ((cMovimentColumna == 1) || (cMovimentColumna == -1))){
            movimentValid = true;
-        } else if (jugaX && (comprobacioMovFil == 1) && ((comprobacioMovCol == 1) || (comprobacioMovCol == -1))) {
+        } else if (jugaX && (cMovimentFila == 1) && ((cMovimentColumna == 1) || (cMovimentColumna == -1))) {
            movimentValid = true;
         }
         return movimentValid;
@@ -239,16 +239,16 @@ public class tabla extends javax.swing.JFrame {
     }
 
     private boolean ocupatContrari(int fila, int columna) {
-        boolean esOcupatCont = false;
+        boolean ocupadaContrari = false;
         if((jugaO == true && esX(fila,columna) == true) || 
                 (jugaX == true && esO(fila,columna) == true)){
-            esOcupatCont = true;
+            ocupadaContrari = true;
         }
-        return esOcupatCont;
+        return ocupadaContrari;
     }
 
     private void mou(int fila, int columna) {
-        int sortida = 0;
+        int activador = 0;
         table.setValueAt(null, filaClicada, columnaClicada);
         //começarem amb el jugador O
         //comprobar codi funcionalitat
@@ -256,32 +256,32 @@ public class tabla extends javax.swing.JFrame {
             table.setValueAt("O", fila, columna);
             columnaClicada = -1;
             filaClicada = -1;
-            if(sortida == 0){
-                sortida = 1;
+            if(activador == 0){
+                activador = 1;
                 jugaO = false;
                 jugaX = true;
             }
-        }else{
+        } else {
             table.setValueAt("X", fila, columna);
             columnaClicada = -1;
             filaClicada = -1;
-            if(sortida == 0){
-                sortida = 1;
+            if(activador == 0){
+                activador = 1;
                 jugaO = true;
                 jugaX = false;
             }
-            sortida = 0;
+            activador = 0;
         }
     }
 
 
     private boolean ocupatPropi(int fila, int columna) {
-        boolean esOcupatPropi = false;
+        boolean ocupatPropi = false;
         if((jugaO == true && esO(fila,columna) == true) || 
                 (jugaX == true && esX(fila,columna) == true)){
-            esOcupatPropi = true;
+            ocupatPropi = true;
         }
-        return esOcupatPropi;
+        return ocupatPropi;
     }
 
     private void mostraErrorMoviment() {
