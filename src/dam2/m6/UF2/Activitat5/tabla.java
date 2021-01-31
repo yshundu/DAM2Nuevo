@@ -5,7 +5,6 @@
  */
 package dam2.m6.UF2.Activitat5;
 
-import dam2.m6.UF2.Activitat5.entity.NewHibernateUtil;
 import dam2.m6.UF2.Activitat5.entity.Movimientos;
 import javax.swing.JOptionPane;
 import dam2.m6.UF2.Activitat5.entity.Partida;
@@ -14,7 +13,7 @@ import org.hibernate.Session;
  *
  * @author Yang
  */
-public class tabla extends javax.swing.JFrame {
+public final class tabla extends javax.swing.JFrame {
 
     /**
      * Creates new form tabla
@@ -32,7 +31,7 @@ public class tabla extends javax.swing.JFrame {
     
     public tabla() {
         initComponents();
-        partidaHibernate("NC");
+        //partidaHibernate("NC");
     }
 
     /**
@@ -269,7 +268,7 @@ public class tabla extends javax.swing.JFrame {
     //Mou les fitxes
     private void mou(int fila, int columna) {
         int activador = 0;
-        newMoviment(columnaClicada, columna, filaClicada, fila);
+        NewMoviment(columnaClicada, columna, filaClicada, fila);
         table.setValueAt(null, filaClicada, columnaClicada);
         //começarem amb el jugador O
         //comprobar codi funcionalitat
