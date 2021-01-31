@@ -7,7 +7,6 @@ package dam2.m6.UF2.Activitat5;
 
 import javax.swing.JOptionPane;
 import dam2.m6.UF2.Activitat5.entity.Partida;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 /**
  *
@@ -26,7 +25,6 @@ public class tabla extends javax.swing.JFrame {
     int columnaFinal = -1;
     boolean jugaO = true;
     boolean jugaX = false;
-    static int i = 1;
     static Session session;
     static Partida partida;
     
@@ -350,22 +348,19 @@ public class tabla extends javax.swing.JFrame {
             partidaNova.setVisible(true);
             dispose();
         }
-    }
-    /*
-    //Hibernate a la base de dades (No funciona)
-    public static void partidaHibernate(String guanyador){
-        partida.setIdPartida(i);
+    } 
+    //Guarda la informació de la partida, la id es auto incrementable
+     public void partidaHibernate(String guanyador){
         partida.setGuanyador(guanyador);
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
+            
             session.saveOrUpdate(partida);
             session.getTransaction().commit();
-        
-        } catch (HibernateException e) {
-            System.out.println(e);
-        } finally {
-            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        */ 
+        session.close();
+    }
 }

@@ -41,6 +41,11 @@ public class PartidaNova extends javax.swing.JFrame {
         });
 
         bUltimaPartida.setText("Carrega última partida");
+        bUltimaPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUltimaPartidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,6 +80,10 @@ public class PartidaNova extends javax.swing.JFrame {
         tPartida.setVisible(true);
         dispose(); 
     }//GEN-LAST:event_bNovaPartidaActionPerformed
+
+    private void bUltimaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUltimaPartidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bUltimaPartidaActionPerformed
 
     /**
      * @param args the command line arguments
