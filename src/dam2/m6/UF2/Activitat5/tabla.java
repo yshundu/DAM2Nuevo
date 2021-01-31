@@ -319,7 +319,7 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
-            partidaHibernate("O");
+            //partidaHibernate("O");
         } else if (esX(fila, columna) && fila == 7){
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
                     "GAME OVER", 
@@ -327,7 +327,7 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
-            partidaHibernate("X");
+            //partidaHibernate("X");
             
         }
     }
@@ -337,7 +337,7 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
-            partidaHibernate("O");
+            //partidaHibernate("O");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
@@ -345,12 +345,13 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
-            partidaHibernate("X");
+            //partidaHibernate("X");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
         }
     }
+    /*
     //Hibernate a la base de dades (No funciona)
     public static void partidaHibernate(String guanyador){
         partida.setIdPartida(i);
@@ -366,6 +367,5 @@ public class tabla extends javax.swing.JFrame {
         } finally {
             session.close();
         }
-         
-}
+        */ 
 }
