@@ -229,7 +229,7 @@ public class tabla extends javax.swing.JFrame {
         filaClicada = -1;
         columnaClicada = -1;
     }
-
+    //Comprovem si el moviment es valid
     private boolean movimentValid(int fila, int columna) {
         boolean movimentValid = false;
         
@@ -253,7 +253,8 @@ public class tabla extends javax.swing.JFrame {
         }
         return esBuit;
     }
-
+     //Comprovar si eliminem una fitxa contraria, serveix tant per eliminar
+    //la fitxa com per fer la funcio de guanyar per eliminacio
     private boolean ocupatContrari(int fila, int columna) {
         boolean ocupadaContrari = false;
         if ((jugaO == true && esX(fila,columna) == true)) {
@@ -264,7 +265,7 @@ public class tabla extends javax.swing.JFrame {
         }
         return ocupadaContrari;
     }
-
+    //Mou les fitxes
     private void mou(int fila, int columna) {
         int activador = 0;
         table.setValueAt(null, filaClicada, columnaClicada);
@@ -292,7 +293,7 @@ public class tabla extends javax.swing.JFrame {
         }
     }
 
-
+    //Si es fitxa propi no pot moure alli
     private boolean ocupatPropi(int fila, int columna) {
         boolean ocupatPropi = false;
         if((jugaO == true && esO(fila,columna) == true) || 
@@ -308,7 +309,8 @@ public class tabla extends javax.swing.JFrame {
         filaClicada = -1;
         columnaClicada = -1;
     }
-
+    //Funcio per acabar el joc al arribar al final
+    
     private void gameOver(int fila, int columna) {
         if(esO(fila, columna) && fila == 0){
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
@@ -329,7 +331,7 @@ public class tabla extends javax.swing.JFrame {
             
         }
     }
-    
+    //Funcio per acabar el joc al eliminar totes les fitxes enemigues
     private void jocAcabadaPerEliminacio(int fila, int columna) {
         if(esO(fila, columna) && contadorX == 0){
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
@@ -349,7 +351,7 @@ public class tabla extends javax.swing.JFrame {
             dispose();
         }
     }
-    
+    //Hibernate a la base de dades (No funciona)
     public static void partidaHibernate(String guanyador){
         partida.setIdPartida(i);
         partida.setGuanyador(guanyador);
