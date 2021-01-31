@@ -6,63 +6,42 @@
 package dam2.m6.UF2.Activitat5.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
 
 /**
  *
  * @author Yang
  */
-@Entity
-@Table(name = "partida", schema = "damas")
 public class Partida implements Serializable {
     
-    private int idPartida;
-     private String guanyador;
-     private Set movimientos = new HashSet(0);
+    private Integer idPartida;
+    private String guanyador;
+
+    public int getIdPartida() {
+        return idPartida;
+    }
+
+    public void setIdPartida(int idPartida) {
+        this.idPartida = idPartida;
+    }
+
+    public String getGuanyador() {
+        return guanyador;
+    }
+
+    public void setGuanyador(String guanyador) {
+        this.guanyador = guanyador;
+    }
+
 
     public Partida() {
     }
 
-    public Partida(String guanyador) {
-        this.guanyador = guanyador;
-    }
-    
-    public Partida(String guanyador, Set movimientos) {
-       this.guanyador = guanyador;
-       this.movimientos = movimientos;
-    }
-    
-    @Id
-    @GeneratedValue
-    @Column(name = "idPartida")
-    public Integer getIdPartida() {
-        return this.idPartida;
-    }
-    
-    public void setIdPartida(Integer idPartida) {
+    public Partida(Integer idPartida, String guanyador) {
         this.idPartida = idPartida;
-    }
-    
-    @Column(name = "guanyador")
-    public String getGuanyador() {
-        return this.guanyador;
-    }
-    
-    public void setGuanyador(String guanyador) {
         this.guanyador = guanyador;
     }
-    public Set getMovimientos() {
-        return this.movimientos;
-    }
+
     
-    public void setMovimientos(Set movimientos) {
-        this.movimientos = movimientos;
-    }
 
 }

@@ -6,6 +6,9 @@
 package dam2.m6.UF2.Activitat5;
 
 import javax.swing.JOptionPane;
+import dam2.m6.UF2.Activitat5.entity.Partida;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 /**
  *
  * @author Yang
@@ -23,6 +26,9 @@ public class tabla extends javax.swing.JFrame {
     int columnaFinal = -1;
     boolean jugaO = true;
     boolean jugaX = false;
+    static int i = 1;
+    static Session session;
+    static Partida partida;
     
     public tabla() {
         initComponents();
@@ -311,6 +317,7 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
+            partidaHibernate("O");
         } else if (esX(fila, columna) && fila == 7){
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
                     "GAME OVER", 
@@ -318,6 +325,8 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
+            partidaHibernate("X");
+            
         }
     }
     
@@ -326,6 +335,7 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
+            partidaHibernate("O");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
@@ -333,10 +343,27 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
+            partidaHibernate("X");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
         }
     }
     
+    public static void partidaHibernate(String guanyador){
+        partida.setIdPartida(i);
+        partida.setGuanyador(guanyador);
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(partida);
+            session.getTransaction().commit();
+        
+        } catch (HibernateException e) {
+            System.out.println(e);
+        } finally {
+            session.close();
+        }
+         
+}
 }
