@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dam2.m6.UF2.Activitat5;
+package dam2.m6.UF2.Activitat5.entity;
 
 /**
  *

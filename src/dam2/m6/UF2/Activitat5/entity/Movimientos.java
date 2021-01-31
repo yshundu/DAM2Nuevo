@@ -14,21 +14,20 @@ import javax.persistence.Table;
 @Table(name = "movimientos")
 public class Movimientos  implements java.io.Serializable {
     
-
-    @Id @GeneratedValue
-    @Column(name = "idMovimiento")
+     @Id @GeneratedValue
+     @Column(name = "idMovimento")
      private Integer idMovimiento;
-    @Column(name = "idPartida")
+      @Column(name = "idPartida")
      private Partida partida;
-    @Column(name = "columnaInicio")
+       @Column(name = "columnaInicio")
      private int columnaInicio;
-    @Column(name = "columnaFinal")
+        @Column(name = "columnaFinal")
      private int columnaFinal;
-    @Column(name = "filaInicio")
+         @Column(name = "filaInicio")
      private int filaInicio;
-    @Column(name = "filaFinal")
+          @Column(name = "filaFinal")
      private int filaFinal;
-
+     
     public Movimientos() {
     }
 
@@ -40,7 +39,7 @@ public class Movimientos  implements java.io.Serializable {
        this.filaFinal = filaFinal;
     }
    
-    public int getIdMovimiento() {
+    public Integer getIdMovimiento() {
         return this.idMovimiento;
     }
     

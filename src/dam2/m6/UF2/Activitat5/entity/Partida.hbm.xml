@@ -3,9 +3,9 @@
 <!-- Generated 31-ene-2021 20:04:23 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
   <class catalog="damas" name="dam2.m6.UF2.Activitat5.entity.Partida" optimistic-lock="version" table="partida">
-    <id name="idPartida" type="int">
+    <id name="idPartida" type="java.lang.Integer">
       <column name="idPartida"/>
-      <generator class="assigned"/>
+      <generator class="identity"/>
     </id>
     <property name="guanyador" type="string">
       <column length="2" name="guanyador" not-null="true"/>

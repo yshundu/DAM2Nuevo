@@ -5,6 +5,8 @@
  */
 package dam2.m6.UF2.Activitat5;
 
+import dam2.m6.UF2.Activitat5.entity.NewHibernateUtil;
+import dam2.m6.UF2.Activitat5.entity.Movimientos;
 import javax.swing.JOptionPane;
 import dam2.m6.UF2.Activitat5.entity.Partida;
 import org.hibernate.Session;
@@ -26,10 +28,11 @@ public class tabla extends javax.swing.JFrame {
     boolean jugaO = true;
     boolean jugaX = false;
     static Session session;
-    static Partida partida;
+    static Partida partida = new Partida("");
     
     public tabla() {
         initComponents();
+        partidaHibernate("NC");
     }
 
     /**
@@ -182,8 +185,8 @@ public class tabla extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
-
-    private int obtenirFilaClicada() {
+    
+     private int obtenirFilaClicada() {
         return table.getSelectedRow();
     }
 
@@ -266,6 +269,7 @@ public class tabla extends javax.swing.JFrame {
     //Mou les fitxes
     private void mou(int fila, int columna) {
         int activador = 0;
+        newMoviment(columnaClicada, columna, filaClicada, fila);
         table.setValueAt(null, filaClicada, columnaClicada);
         //começarem amb el jugador O
         //comprobar codi funcionalitat
@@ -317,7 +321,7 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
-            //partidaHibernate("O");
+            partidaHibernate("O");
         } else if (esX(fila, columna) && fila == 7){
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat!\n", 
                     "GAME OVER", 
@@ -325,7 +329,7 @@ public class tabla extends javax.swing.JFrame {
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
-            //partidaHibernate("X");
+            partidaHibernate("X");
             
         }
     }
@@ -335,7 +339,7 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
-            //partidaHibernate("O");
+            partidaHibernate("O");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
@@ -343,7 +347,7 @@ public class tabla extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Les dames X han guanyat! \n", 
                     "GAME OVER", 
                 JOptionPane.PLAIN_MESSAGE);
-            //partidaHibernate("X");
+            partidaHibernate("X");
             PartidaNova partidaNova = new PartidaNova();
             partidaNova.setVisible(true);
             dispose();
@@ -352,12 +356,25 @@ public class tabla extends javax.swing.JFrame {
     //Guarda la informació de la partida, la id es auto incrementable
      public void partidaHibernate(String guanyador){
         partida.setGuanyador(guanyador);
-        try {
+        try { 
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             
             session.saveOrUpdate(partida);
             session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+    }
+     
+     public void NewMoviment(int columnaInicio, int columnaFinal, int filaInicio, int filaFinal){
+        Movimientos movimientos = new Movimientos(partida, columnaInicio, columnaFinal, filaInicio, filaFinal);
+        try{
+           session = NewHibernateUtil.getSessionFactory().openSession();
+           session.beginTransaction(); 
+           session.save(movimientos);
+           session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
