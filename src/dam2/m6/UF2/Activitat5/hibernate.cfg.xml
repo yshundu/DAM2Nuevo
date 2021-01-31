@@ -7,8 +7,8 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/damas?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
     <mapping resource="dam2/m6/UF2/Activitat5/entity/Partida.hbm.xml"/>
-    <mapping resource="dam2/m6/UF2/Activitat5/entity/Movimientos.hbm.xml"/>
+    <mapping resource="dam2/m6/UF2/Activitat5/entity/Movimiento.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

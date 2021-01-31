@@ -7,14 +7,14 @@
       <column name="idPartida"/>
       <generator class="identity"/>
     </id>
-    <property name="guanyador" type="string">
-      <column length="2" name="guanyador" not-null="true"/>
+    <property name="ganador" type="string">
+      <column length="2" name="ganador" not-null="true"/>
     </property>
-    <set fetch="select" inverse="true" lazy="true" name="movimientoses" table="movimientos">
+    <set fetch="select" inverse="true" lazy="true" name="movimientos" table="movimiento">
       <key>
         <column name="idPartida" not-null="true"/>
       </key>
-      <one-to-many class="dam2.m6.UF2.Activitat5.entity.Movimientos"/>
+      <one-to-many class="dam2.m6.UF2.Activitat5.entity.Movimiento"/>
     </set>
   </class>
 </hibernate-mapping>

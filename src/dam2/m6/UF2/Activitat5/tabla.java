@@ -5,7 +5,7 @@
  */
 package dam2.m6.UF2.Activitat5;
 
-import dam2.m6.UF2.Activitat5.entity.Movimientos;
+import dam2.m6.UF2.Activitat5.entity.Movimiento;
 import javax.swing.JOptionPane;
 import dam2.m6.UF2.Activitat5.entity.Partida;
 import org.hibernate.Session;
@@ -368,7 +368,7 @@ public final class tabla extends javax.swing.JFrame {
     }
      
      public void NewMoviment(int columnaInicio, int columnaFinal, int filaInicio, int filaFinal){
-        Movimientos movimientos = new Movimientos(partida, columnaInicio, columnaFinal, filaInicio, filaFinal);
+        Movimiento movimientos = new Movimiento(partida, columnaInicio, columnaFinal, filaInicio, filaFinal);
         try{
            session = NewHibernateUtil.getSessionFactory().openSession();
            session.beginTransaction(); 

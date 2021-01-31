@@ -14,19 +14,19 @@ import javax.persistence.Id;
 public class Partida  implements java.io.Serializable {
      
      private Integer idPartida;
-     private String guanyador;
+     private String ganador;
      
-     private Set movimientoses = new HashSet(0);
+     private Set movimientos = new HashSet(0);
 
     public Partida() {
     }
 
-    public Partida(String guanyador) {
-        this.guanyador = guanyador;
+    public Partida(String ganador) {
+        this.ganador = ganador;
     }
-    public Partida(String guanyador, Set movimientoses) {
-       this.guanyador = guanyador;
-       this.movimientoses = movimientoses;
+    public Partida(String guanyador, Set movimientos) {
+       this.movimientos = movimientos;
+       this.ganador = ganador;
     }
     @Id
     @GeneratedValue
@@ -39,18 +39,18 @@ public class Partida  implements java.io.Serializable {
         this.idPartida = idPartida;
     }
     public String getGuanyador() {
-        return this.guanyador;
+        return this.ganador;
     }
     
     public void setGuanyador(String guanyador) {
-        this.guanyador = guanyador;
+        this.ganador = guanyador;
     }
     public Set getMovimientoses() {
-        return this.movimientoses;
+        return this.movimientos;
     }
     
     public void setMovimientoses(Set movimientoses) {
-        this.movimientoses = movimientoses;
+        this.movimientos = movimientoses;
     }
 
 
