@@ -1,5 +1,8 @@
-package dam2.m6.UF2.Activitat5;
+package dam2.m6.UF2.Activitat5.entity;
 // Generated 31-ene-2021 20:04:23 by Hibernate Tools 4.3.1
+
+import dam2.m6.UF2.Activitat5.entity.Partida;
+
 
 
 

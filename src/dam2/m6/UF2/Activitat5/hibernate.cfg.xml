@@ -9,7 +9,6 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="dam2/m6/UF2/Activitat5/entity/Partida.hbm.xml"/>
-    <mapping resource="dam2/m6/UF2/Activitat5/Movimientos.hbm.xml"/>
-    <mapping resource="dam2/m6/UF2/Activitat5/Partida.hbm.xml"/>
+    <mapping resource="dam2/m6/UF2/Activitat5/entity/Movimientos.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
