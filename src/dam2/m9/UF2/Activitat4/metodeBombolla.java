@@ -20,10 +20,27 @@ public class metodeBombolla implements Runnable{
         this.arrayBombolla = arrayBombolla;
         this.parts = part;
     }
-
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        int aux;
+        int[] arrayAux;
+        for (int i = 1; i < arrayBombolla.length; i++) {
 
+            for (int j = 0; j < arrayBombolla.length - i; j++) {
+
+                if (arrayBombolla[j] > arrayBombolla[j + 1]) {
+                    arrayAux = arrayBombolla.clone();
+                    aux = arrayBombolla[j];
+                    arrayBombolla[j] = arrayBombolla[j + 1];
+                    arrayBombolla[j + 1] = aux;
+                    
+                    System.out.println("Part " + (parts + 1)+ " " + Arrays.toString(arrayAux) + " > " + Arrays.toString(arrayBombolla));
+                }
+
+            }
+
+        }
+        
+        System.out.println(Arrays.toString(arrayBombolla));
+    }
 }
