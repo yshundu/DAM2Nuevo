@@ -5,8 +5,6 @@
  */
 package dam2.m6.UF2.Activitat5;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author Yang

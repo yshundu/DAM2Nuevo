@@ -6,7 +6,7 @@
 package dam2.m6.UF2.Activitat5;
 
 import javax.swing.JOptionPane;
-import dam2.m6.UF2.Activitat5.entity.Partida;
+import dam2.m6.UF2.Activitat5.Partida;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 /**
