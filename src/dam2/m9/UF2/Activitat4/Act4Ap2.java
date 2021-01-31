@@ -62,7 +62,7 @@ public class Act4Ap2 {
         System.out.println(Arrays.toString(arrayOrdenada));
     }
 
-    static int valorMesPetit(int valor1, int valor2, int valor3, int valor4) {
+    static int valorMesPetit(int valor1, int valor2, int valor3, int valor4 ) {
 
         int[] aux = {valor1, valor2, valor3, valor4};
         int minim = valor1;

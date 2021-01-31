@@ -16,7 +16,7 @@ public class metodeBombolla implements Runnable{
     public int[] arrayBombolla;
     public int parts;
 
-    public metodeBombolla(int[] arrayBombolla, int part) {
+    public metodeBombolla(int[] arrayBombolla, int part ) {
         this.arrayBombolla = arrayBombolla;
         this.parts = part;
     }
