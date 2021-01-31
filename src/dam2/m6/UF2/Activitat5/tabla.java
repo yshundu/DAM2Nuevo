@@ -119,7 +119,11 @@ public class tabla extends javax.swing.JFrame {
         } else {
             if(movimentValid(fila, columna)){
                 if(ocupatContrari(fila, columna)){
-                    
+                    if (jugaO == true) {
+                    contadorX--;
+                    } else {
+                    contadorO--;
+                    }
                 }
                 if(esBuit(fila, columna) || ocupatContrari(fila, columna)){
                     mou(fila, columna);
@@ -247,11 +251,9 @@ public class tabla extends javax.swing.JFrame {
     private boolean ocupatContrari(int fila, int columna) {
         boolean ocupadaContrari = false;
         if ((jugaO == true && esX(fila,columna) == true)) {
-            contadorX--;
             ocupadaContrari = true;
         }
         else if((jugaX == true && esO(fila,columna) == true)){
-            contadorO--;
             ocupadaContrari = true;
         }
         return ocupadaContrari;

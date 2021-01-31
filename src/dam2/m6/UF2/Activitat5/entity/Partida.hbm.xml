@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/01/2021 13:11:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dam2.M6.UF2.Activitat5.entity.Partida" table="partida" catalog="damas" optimistic-lock="version">
+        <id name="idPartida" type="java.lang.Integer">
+            <column name="idPartida" />
+            <generator class="identity" />
+        </id>
+        <property name="guanyador" type="string">
+            <column name="guanyador" length="2" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
