@@ -42,7 +42,7 @@ public class Act4Ap3AForkJoin extends RecursiveTask<Long>{
     
         public static void main(String[] args) {
         ForkJoinPool pool = new ForkJoinPool();
-        System.out.println(pool.invoke(new Act4Ap3AForkJoin(5,5)));
+        System.out.println(pool.invoke(new Act4Ap3AForkJoin(5,3)));
 
     }
 }

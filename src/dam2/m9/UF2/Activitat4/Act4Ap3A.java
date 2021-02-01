@@ -11,7 +11,8 @@ package dam2.m9.UF2.Activitat4;
  */
 public class Act4Ap3A {
     //Metode per elevar al cuadrat en recursiu
-    public static int elevadoX(int exponente, int base){
+    public static long elevadoX(long exponente, long base){
+        double calcul = java.lang.Math.cos(54879854);
         int comprovar = 0;
         if(exponente == 0){
             comprovar = 1;
@@ -25,6 +26,6 @@ public class Act4Ap3A {
     }
     
     public static void main(String[] args) {
-        System.out.println(elevadoX(0,2));
+        System.out.println(elevadoX(55,15));
     }
 }
