@@ -26,6 +26,8 @@ public class Act4Ap3BForkJoin extends RecursiveTask<Long>{
         if (valor2 == 0) {
             return (long)valor1;
         } else {
+            //Si el segon valor no es 0 tornem a cridar a la funcio
+            //Y fem un fork join
             Act4Ap3BForkJoin tmp = new Act4Ap3BForkJoin(valor2, valor1%valor2);
             tmp.fork();
             return (long)tmp.join();

@@ -33,6 +33,7 @@ public class Act4Ap3AForkJoin extends RecursiveTask<Long>{
         if (exponente == 0) {
             return (long) 1;
         } else {
+            //Si el exponente no es 0 llamamos a la funcion de nuevo
             Act4Ap3AForkJoin tmp = new Act4Ap3AForkJoin(base,exponente-1);
             tmp.fork();
             return tmp.join() * base;

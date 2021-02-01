@@ -10,7 +10,7 @@ package dam2.m9.UF2.Activitat4;
  * @author Yang
  */
 public class Act4Ap3A {
-    
+    //Metode per elevar al cuadrat en recursiu
     public static int elevadoX(int exponente, int base){
         int comprovar = 0;
         if(exponente == 0){

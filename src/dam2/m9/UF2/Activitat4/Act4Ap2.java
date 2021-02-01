@@ -13,22 +13,24 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author Yang
  */
 public class Act4Ap2 {
-    
+    //Inicialitcem el array
     static int[] arrayContador = {0, 0, 0, 0};
 
     public static void main(String[] args) throws InterruptedException {
-        
+        //Les fills
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+        //Array de aleatoris
         int[] numerosAleatoris = new int[20];
-
+        //Cridem a la funcio bombolla creant un array de 4 posicions
         metodeBombolla[] arrayBombollas = new metodeBombolla[4];
-
+        //generem els numeros aleatoris dis del array de aleatoris
         for (int i = 0; i < numerosAleatoris.length; i++) {
             numerosAleatoris[i] = (int) (Math.random() * 20) + 1;
         }
 
         System.out.println(Arrays.toString(numerosAleatoris));
-
+        //Assignem els numeros aleatoris a les posicions del array del metode
+        //bombolla
         int contadorX = 0;
         for (int i = 0; i < arrayBombollas.length; i++) {
             int[] arrayAux = new int[numerosAleatoris.length / 4];
@@ -42,9 +44,9 @@ public class Act4Ap2 {
         }
 
         executor.shutdown();
-
+        //Generem un array de 20 posicions pels ordenades
         int arrayOrdenada[] = new int[20];
-
+        //Ordenem el array
         for (int i = 0; i < arrayOrdenada.length; i++) {
 
             int aux = valorMesPetit(
@@ -59,9 +61,10 @@ public class Act4Ap2 {
         //Utilitzo sleep perque aquest system out sigui lo ultim que surti
         //mentres que els fills acaben
          Thread.sleep(500);
+         //Imprimim per pantalla el array
         System.out.println(Arrays.toString(arrayOrdenada));
     }
-
+    //Funcio per buscar el valor mes petita
     static int valorMesPetit(int valor1, int valor2, int valor3, int valor4 ) {
 
         int[] aux = {valor1, valor2, valor3, valor4};

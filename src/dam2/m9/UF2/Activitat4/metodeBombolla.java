@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author Yang
  */
 public class metodeBombolla implements Runnable{
-    
+    //Metode bombolla per ordenar
     public int[] arrayBombolla;
     public int parts;
 
