@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 31-ene-2021 20:04:23 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2021 22:26:54 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="damas" name="dam2.m6.UF2.Activitat5.entity.Partida" optimistic-lock="version" table="partida">
-    <id name="idPartida" type="java.lang.Integer">
-      <column name="idPartida"/>
-      <generator class="identity"/>
-    </id>
-    <property name="ganador" type="string">
-      <column length="2" name="ganador" not-null="true"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="movimientos" table="movimiento">
-      <key>
-        <column name="idPartida" not-null="true"/>
-      </key>
-      <one-to-many class="dam2.m6.UF2.Activitat5.entity.Movimiento"/>
-    </set>
-  </class>
+    <class name="dam2.m6.UF2.Activitat5.entity.Partida" table="partida" catalog="damas" optimistic-lock="version">
+        <id name="idPartida" type="java.lang.Integer">
+            <column name="idPartida" />
+            <generator class="identity" />
+        </id>
+        <property name="ganador" type="string">
+            <column name="ganador" length="2" not-null="true" />
+        </property>
+        <set name="movimientos" table="movimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPartida" not-null="true" />
+            </key>
+            <one-to-many class="dam2.m6.UF2.Activitat5.entity.Movimiento" />
+        </set>
+    </class>
 </hibernate-mapping>

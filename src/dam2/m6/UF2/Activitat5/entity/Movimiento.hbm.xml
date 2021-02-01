@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 31-ene-2021 20:04:23 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2021 22:26:54 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="damas" name="dam2.m6.UF2.Activitat5.entity.Movimiento" optimistic-lock="version" table="movimiento">
-    <id name="idMovimiento" type="java.lang.Integer">
-      <column name="idMovimiento"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="dam2.m6.UF2.Activitat5.entity.Partida" fetch="select" name="partida">
-      <column name="idPartida" not-null="true"/>
-    </many-to-one>
+    <class name="dam2.m6.UF2.Activitat5.entity.Movimiento" table="movimiento" catalog="damas" optimistic-lock="version">
+        <id name="idMoviment" type="java.lang.Integer">
+            <column name="idMoviment" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="partida" class="entity.Partida" fetch="select">
+            <column name="idPartida" not-null="true" />
+        </many-to-one>
         <property name="columnaOrigen" type="int">
             <column name="columnaOrigen" not-null="true" />
         </property>
-        <property name="columnaDestino" type="int">
-            <column name="columnaDestino" not-null="true" />
+        <property name="columnaDesti" type="int">
+            <column name="columnaDesti" not-null="true" />
         </property>
         <property name="filaOrigen" type="int">
             <column name="filaOrigen" not-null="true" />
         </property>
-        <property name="filaDestino" type="int">
-            <column name="filaDestino" not-null="true" />
+        <property name="filaDesti" type="int">
+            <column name="filaDesti" not-null="true" />
         </property>
-  </class>
+    </class>
 </hibernate-mapping>
