@@ -8,7 +8,7 @@
             <column name="idMoviment" />
             <generator class="identity" />
         </id>
-        <many-to-one name="partida" class="entity.Partida" fetch="select">
+        <many-to-one name="partida" class="dam2.m6.UF2.Activitat5.entity.Partida" fetch="select">
             <column name="idPartida" not-null="true" />
         </many-to-one>
         <property name="columnaOrigen" type="int">

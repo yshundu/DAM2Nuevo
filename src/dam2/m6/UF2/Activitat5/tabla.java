@@ -6,8 +6,8 @@
 package dam2.m6.UF2.Activitat5;
 
 import dam2.m6.UF2.Activitat5.entity.Movimiento;
-import javax.swing.JOptionPane;
 import dam2.m6.UF2.Activitat5.entity.Partida;
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 /**
  *
@@ -31,7 +31,7 @@ public final class tabla extends javax.swing.JFrame {
     
     public tabla() {
         initComponents();
-        //partidaHibernate("NC");
+        partidaHibernate("NC");
     }
 
     /**
@@ -110,7 +110,7 @@ public final class tabla extends javax.swing.JFrame {
     }//GEN-LAST:event_bSortirActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        int columna = obtenirColumnaClicada();
+  int columna = obtenirColumnaClicada();
         int fila = obtenirFilaClicada(); 
         
         if(noHiHaOrigen()){
@@ -134,74 +134,50 @@ public final class tabla extends javax.swing.JFrame {
                 if(esBuit(fila, columna) || ocupatContrari(fila, columna)){
                     mou(fila, columna);
                     jocAcabadaPerEliminacio(fila,columna);
-                    gameOver(fila, columna);
+                    guanyador(fila, columna);
                 } else if (ocupatPropi(fila, columna)){
                     actualitzaNouOrigen(fila, columna);
                 }
             } else {
                 mostraErrorMoviment();
             }
-    }//GEN-LAST:event_tableMouseClicked
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new tabla().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bSortir;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table;
-    // End of variables declaration//GEN-END:variables
+    }//GEN-LAST:event_tableMouseClicked
     
-     private int obtenirFilaClicada() {
-        return table.getSelectedRow();
+    public int obtenirFilaClicada(){
+        int fila;
+        fila = table.getSelectedRow();
+        
+        return fila;
     }
-
-    private int obtenirColumnaClicada() {
-       return table.getSelectedColumn();
+    
+    public int obtenirColumnaClicada(){
+        int columna;
+        columna = table.getSelectedColumn();
+        
+        return columna;
+        
     }
-
-    private boolean noHiHaOrigen() {
+    
+   private boolean noHiHaOrigen() {
         boolean noOrigen = false;
         if(filaClicada == -1 || columnaClicada == -1) {
             noOrigen = true;
         }
         return noOrigen;
     }
-
-    private boolean esO(int fila, int columna) {
+    
+    public boolean esX(int fila,int columna){
+        boolean esx = false;
+        if(table.getValueAt(fila, columna) == ("X")){
+            esx = true;
+        }
+        
+        
+        return esx;
+    }
+    
+   private boolean esO(int fila, int columna) {
         boolean esO = false;
         
         if(table.getValueAt(fila, columna) == "O"){
@@ -209,26 +185,19 @@ public final class tabla extends javax.swing.JFrame {
         }
         return esO;
     }
-
-    private boolean esX(int fila, int columna) {
-        boolean esX = false;
-        if(table.getValueAt(fila, columna) == "X"){
-            esX = true;
-        }
-        return esX;
-    }
-
+    
     private void actualitzaNouOrigen(int fila, int columna) {
         filaClicada = fila;
         columnaClicada = columna;
     }
-
-    private void mostrarError() {
+    
+   private void mostrarError() {
         JOptionPane.showMessageDialog(null, "Error ", "Dames", 
                 JOptionPane.ERROR_MESSAGE);
         filaClicada = -1;
         columnaClicada = -1;
     }
+    
     //Comprovem si el moviment es valid
     private boolean movimentValid(int fila, int columna) {
         boolean movimentValid = false;
@@ -245,7 +214,7 @@ public final class tabla extends javax.swing.JFrame {
         }
         return movimentValid;
     }
-
+    
     private boolean esBuit(int fila, int columna) {
         boolean esBuit = false;
         if(table.getValueAt(fila, columna) == null){
@@ -253,6 +222,7 @@ public final class tabla extends javax.swing.JFrame {
         }
         return esBuit;
     }
+    
      //Comprovar si eliminem una fitxa contraria, serveix tant per eliminar
     //la fitxa com per fer la funcio de guanyar per eliminacio
     private boolean ocupatContrari(int fila, int columna) {
@@ -265,6 +235,7 @@ public final class tabla extends javax.swing.JFrame {
         }
         return ocupadaContrari;
     }
+    
     //Mou les fitxes
     private void mou(int fila, int columna) {
         int activador = 0;
@@ -293,7 +264,7 @@ public final class tabla extends javax.swing.JFrame {
             activador = 0;
         }
     }
-
+    
     //Si es fitxa propi no pot moure alli
     private boolean ocupatPropi(int fila, int columna) {
         boolean ocupatPropi = false;
@@ -303,16 +274,15 @@ public final class tabla extends javax.swing.JFrame {
         }
         return ocupatPropi;
     }
-
+    
     private void mostraErrorMoviment() {
         JOptionPane.showMessageDialog(null, "Moviment no vàlid", "Error dames", 
                 JOptionPane.ERROR_MESSAGE);
         filaClicada = -1;
         columnaClicada = -1;
     }
-    //Funcio per acabar el joc al arribar al final
     
-    private void gameOver(int fila, int columna) {
+    private void guanyador(int fila, int columna) {
         if(esO(fila, columna) && fila == 0){
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
                     "GAME OVER", 
@@ -332,8 +302,7 @@ public final class tabla extends javax.swing.JFrame {
             
         }
     }
-    //Funcio per acabar el joc al eliminar totes les fitxes enemigues
-    private void jocAcabadaPerEliminacio(int fila, int columna) {
+        private void jocAcabadaPerEliminacio(int fila, int columna) {
         if(esO(fila, columna) && contadorX == 0){
             JOptionPane.showMessageDialog(null, "Les dames O han guanyat! \n", 
                     "GAME OVER", 
@@ -352,9 +321,10 @@ public final class tabla extends javax.swing.JFrame {
             dispose();
         }
     } 
+    
     //Guarda la informació de la partida, la id es auto incrementable
      public void partidaHibernate(String guanyador){
-        partida.setGuanyador(guanyador);
+        partida.setGanador(guanyador);
         try { 
             session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -366,7 +336,7 @@ public final class tabla extends javax.swing.JFrame {
         }
         session.close();
     }
-     
+    
      public void NewMoviment(int columnaInicio, int columnaFinal, int filaInicio, int filaFinal){
         Movimiento movimientos = new Movimiento(partida, columnaInicio, columnaFinal, filaInicio, filaFinal);
         try{
@@ -379,4 +349,38 @@ public final class tabla extends javax.swing.JFrame {
         }
         session.close();
     }
+     
+    
+    
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(tabla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }    
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new tabla().setVisible(true);
+            }
+        });
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bSortir;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable table;
+    // End of variables declaration//GEN-END:variables
+
 }
