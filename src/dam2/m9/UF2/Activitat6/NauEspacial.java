@@ -43,7 +43,7 @@ public class NauEspacial extends javax.swing.JFrame {
             }       
         NauEspacial f = new NauEspacial();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Naus Espaials");
+        f.setTitle("Naus Espacials");
         f.setContentPane(new PanelNau());
         f.setSize(480, 560);
         f.setVisible(true);
