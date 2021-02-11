@@ -54,6 +54,7 @@ public class NauEspacial extends javax.swing.JFrame {
 class PanelNau extends JPanel implements Runnable{
     private int numNaus=3;    
     Nau[] nau;
+    Nau nauJugador;
 
     public PanelNau(){        
         nau = new Nau[numNaus];
@@ -65,7 +66,9 @@ class PanelNau extends JPanel implements Runnable{
             int dX=rand.nextInt(3)+1;
             int dY=rand.nextInt(3)+1;
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
+            
             }
+        nauJugador = new Nau(4,200,450,2,0,50);
         Thread n = new Thread(this);
         n.start();   
         }
@@ -79,9 +82,10 @@ class PanelNau extends JPanel implements Runnable{
             }                   
         }
 
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         for(int i=0; i<nau.length;++i) nau[i].pinta(g);
+        nauJugador.pinta(g);
         }
     }
 
@@ -112,15 +116,15 @@ class Nau extends Thread {
         return v;
         }
     
-    public void moure (){
+    public synchronized void moure (){
         x=x + dsx;
         y=y + dsy;
         // si arriva als marges ...
-        if ( x>= 450 - tx || x<= tx) dsx = - dsx;
-        if ( y >= 500 - ty || y<=ty ) dsy = - dsy;
+        if ( x>= 440 - tx || x<= tx) dsx = - dsx;
+        if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
         }
     
-    public void pinta (Graphics g) {
+    public synchronized void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(this.image, x, y, null);
         }
