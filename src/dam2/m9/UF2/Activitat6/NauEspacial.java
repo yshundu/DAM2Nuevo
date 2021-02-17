@@ -6,6 +6,8 @@
 package dam2.m9.UF2.Activitat6;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -51,12 +53,12 @@ public class NauEspacial extends javax.swing.JFrame {
     }
 
 
-class PanelNau extends JPanel implements Runnable{
+class PanelNau extends JPanel implements Runnable, KeyListener{
     private int numNaus=3;    
     Nau[] nau;
     Nau nauJugador;
-
-    public PanelNau(){        
+    int ddX=0;
+    public PanelNau(){
         nau = new Nau[numNaus];
         for (int i=0;i<nau.length;i++) {
             Random rand = new Random();
@@ -68,11 +70,16 @@ class PanelNau extends JPanel implements Runnable{
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
             
             }
-        nauJugador = new Nau(4,200,450,2,0,50);
+        nauJugador = new Nau(4,200,450,0,0,50);
         Thread n = new Thread(this);
-        n.start();   
+        n.start();
+        
+        addKeyListener(this);
+        setFocusable(true);
+        
         }
-
+    
+    
     public void run() {
         System.out.println("Inici fil repintar");
         while(true) {
@@ -87,15 +94,56 @@ class PanelNau extends JPanel implements Runnable{
         for(int i=0; i<nau.length;++i) nau[i].pinta(g);
         nauJugador.pinta(g);
         }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
+        if(e.getKeyCode()==65) {
+            ddX=-5;
+            nauJugador.setDsx(ddX);
+        } else if (e.getKeyCode()==68) {
+            ddX=5;
+            nauJugador.setDsx(ddX);
+        } else {
+            
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        ddX=0;
+        nauJugador.setDsx(ddX);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
     }
 
 
 class Nau extends Thread {
     private int numero;
+
+    public int getV() {
+        return v;
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
     private int x,y;
     private int dsx,dsy,v;
     private int tx = 10;
     private int ty = 10;
+
+    public int getDsx() {
+        return dsx;
+    }
+
+    public void setDsx(int dsx) {
+        this.dsx = dsx;
+    }
 
     private String img = "/images/nau.jpg";
     private Image image;
@@ -120,9 +168,12 @@ class Nau extends Thread {
         x=x + dsx;
         y=y + dsy;
         // si arriva als marges ...
-        if ( x>= 440 - tx || x<= tx) dsx = - dsx;
-        if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
+        if ( x>= 440 - tx || x<= tx)
+            dsx = - dsx;
+        if ( y >= 400 - ty || y<=ty )
+            dsy = - dsy;
         }
+    
     
     public synchronized void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
