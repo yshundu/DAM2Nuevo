@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dam2.m3.UF6.Activitat1;
+package dam2.m3.UF6.NoAvaluables;
 
 /**
  *
@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-public class FanrenheitToCelsius extends JFrame implements ActionListener {
+public class Activitat2 extends JFrame implements ActionListener {
     JLabel label;
     JLabel label2;
     JLabel label3;
@@ -26,7 +26,7 @@ public class FanrenheitToCelsius extends JFrame implements ActionListener {
     JButton bChange3;
     
     //constructor
-    public FanrenheitToCelsius(String title){
+    public Activitat2(String title){
         super(title);
         label = new JLabel("Convent Fahrenheit to Celsius");
         label2 = new JLabel("Fahrenheit");
@@ -75,7 +75,7 @@ public class FanrenheitToCelsius extends JFrame implements ActionListener {
     }
     
     public static void main (String[] args) {
-        FanrenheitToCelsius teg = new FanrenheitToCelsius("F to C");
+        Activitat2 teg = new Activitat2("F to C");
         teg.setSize(400, 300);
         teg.setVisible(true);
     }

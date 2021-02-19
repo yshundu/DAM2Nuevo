@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dam2.m3.UF6.Activitat1;
+package dam2.m3.UF6.NoAvaluables;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FourButtonsTester extends JFrame implements ActionListener {
+public class Activitat1 extends JFrame implements ActionListener {
     
     JButton bChange;
     JButton bChange2;
@@ -22,7 +22,7 @@ public class FourButtonsTester extends JFrame implements ActionListener {
     JButton bChange4;
     
     //constructor
-    public FourButtonsTester(){
+    public Activitat1(){
         bChange = new JButton("Vermell");
         bChange2 = new JButton("Verd");
         bChange3 = new JButton("Blau");
@@ -63,7 +63,7 @@ public class FourButtonsTester extends JFrame implements ActionListener {
     }
     
     public static void main (String[] args) {
-        FourButtonsTester button = new FourButtonsTester();
+        Activitat1 button = new Activitat1();
         button.setSize(400, 300);
         
         button.setVisible(true);
