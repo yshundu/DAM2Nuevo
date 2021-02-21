@@ -99,11 +99,15 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     public void keyPressed(KeyEvent e) {
         System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
         if(e.getKeyCode()==65) {
-            ddX=-5;
-            nauJugador.setDsx(ddX);
+            if(!(nauJugador.getX()<= 0 - nauJugador.getTx())) {
+                ddX=-5;
+                nauJugador.setDsx(ddX);
+            }
         } else if (e.getKeyCode()==68) {
-            ddX=5;
-            nauJugador.setDsx(ddX);
+            if(!(nauJugador.getX()>= 440 - nauJugador.getTx())) {
+                ddX=5;
+                nauJugador.setDsx(ddX);
+            }
         } else {
             
         }
@@ -131,6 +135,22 @@ class Nau extends Thread {
 
     public void setV(int v) {
         this.v = v;
+    }
+
+    public int getTx() {
+        return tx;
+    }
+
+    public void setTx(int tx) {
+        this.tx = tx;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
     }
     private int x,y;
     private int dsx,dsy,v;
@@ -173,8 +193,6 @@ class Nau extends Thread {
         if ( y >= 400 - ty || y<=ty )
             dsy = - dsy;
         }
-    
-    
     public synchronized void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(this.image, x, y, null);
@@ -188,4 +206,5 @@ class Nau extends Thread {
             moure();
             }
         }
+    
     }
