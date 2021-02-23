@@ -54,8 +54,9 @@ public class NauEspacial extends javax.swing.JFrame {
 
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
-    private int numNaus=3;    
+    private int numNaus=3;   
     Nau[] nau;
+    Bala bala;
     Nau nauJugador;
     int ddX=0;
     public PanelNau(){
@@ -82,18 +83,14 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     
     public void run() {
         System.out.println("Inici fil repintar");
+        bala = new Bala(3, nauJugador.getX(),nauJugador.getY(), 0, 0, 50);
         while(true) {
-            try { Thread.sleep(100);} catch(Exception e) {} // espero 0,1 segons
+            try { Thread.sleep(50);} catch(Exception e) {} // espero 0,1 segons
             System.out.println("Repintant");
             repaint();            
             }                   
         }
 
-    public synchronized void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        for(int i=0; i<nau.length;++i) nau[i].pinta(g);
-        nauJugador.pinta(g);
-        }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -108,15 +105,31 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                 ddX=5;
                 nauJugador.setDsx(ddX);
             }
-        } else {
-            
+        } else if (e.getKeyCode()==32) {
+            bala.setX(nauJugador.getX());
+            bala.setY(nauJugador.getY());
+            bala.setDsy(-10);
+        }
+        else {
+            nauJugador.setDsx(0);
         }
     }
+    public synchronized void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        for(int i=0; i<nau.length;++i){
+            nau[i].pinta(g);
+        nauJugador.pinta(g);
+        }
+        if (bala.getDsy()==0){
+            
+        } else {
+          bala.pinta(g);
+        }
+     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        ddX=0;
-        nauJugador.setDsx(ddX);
+        nauJugador.setDsx(0);
     }
 
     @Override
@@ -128,7 +141,15 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
 class Nau extends Thread {
     private int numero;
+    private int x,y;
+    private int dsx,dsy,v;
+    private int tx = 10;
+    private int ty = 10;
 
+    public int getY() {
+        return y;
+    }
+    
     public int getV() {
         return v;
     }
@@ -152,11 +173,6 @@ class Nau extends Thread {
     public void setX(int x) {
         this.x = x;
     }
-    private int x,y;
-    private int dsx,dsy,v;
-    private int tx = 10;
-    private int ty = 10;
-
     public int getDsx() {
         return dsx;
     }
@@ -166,6 +182,7 @@ class Nau extends Thread {
     }
 
     private String img = "/images/nau.jpg";
+    
     private Image image;
 
     public Nau(int numero, int x, int y, int dsx, int dsy, int v ) {
@@ -203,6 +220,103 @@ class Nau extends Thread {
         while (true) {
             System.out.println("Movent nau numero " + this.numero);
             try { Thread.sleep(this.v); } catch (Exception e) {}
+            moure();
+            }
+        }
+    
+    }
+
+class Bala extends Thread {
+    private int numero;
+    private int x,y;
+    private int dsx,dsy,v;
+    private int tx = 10;
+    private int ty = 10;
+    
+    public int getV() {
+        return v;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
+
+    public int getTx() {
+        return tx;
+    }
+
+    public void setTx(int tx) {
+        this.tx = tx;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+    public int getDsx() {
+        return dsx;
+    }
+
+    public void setDsx(int dsx) {
+        this.dsx = dsx;
+    }
+        public int getDsy() {
+        return dsy;
+    }
+
+    public void setDsy(int dsy) {
+        this.dsy = dsy;
+    }
+    
+    
+    private String img = "/images/balas.jpg";
+    
+    private Image imageBalas;
+
+    public Bala(int numero, int x, int y, int dsx, int dsy, int v ) {
+        this.numero = numero;
+        this.x=x;
+        this.y=y;
+        this.dsx=dsx;
+        this.dsy=dsy;
+        this.v=v;
+        imageBalas = new ImageIcon(Nau.class.getResource("balas.png")).getImage();
+        Thread t = new Thread(this);
+        t.start();
+        }
+    
+    public int velocitat (){
+        return v;
+        }
+    
+    public synchronized void moure (){
+        y = y + dsy;
+        if (y<=ty) {
+            
+        }
+        }
+    public synchronized void pinta (Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(this.imageBalas, x, y, null);
+        }
+    
+
+    public void run() {
+        while (true) {
+            System.out.println("Movent bala numero " + this.numero);
+            try { Thread.sleep(this.v); } 
+            catch (Exception e) {}
             moure();
             }
         }
