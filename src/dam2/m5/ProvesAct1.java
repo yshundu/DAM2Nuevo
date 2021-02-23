@@ -5,6 +5,9 @@
  */
 package dam2.m5;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -13,26 +16,26 @@ import java.util.Scanner;
  */
 public class ProvesAct1 {
     
-    static int Comptador (int x, int y)
+    public static void main (String args[]) throws IOException
     {
-        Scanner entrada = new Scanner(System.in);
-        int num, c = 0;
-        if ((x>0)&&(y>0))
-        {
-            System.out.println("Escriu un número");
-            num = entrada.nextInt();
-            if ((num>=x)&&(num<=y))
-            {
-                System.out.println("\tNúmero en el rang");
-                c++;
-            }
-            else
-                System.out.println("\tNúmero fora del rang");
-        }
+        BufferedReader entrada = 
+                new BufferedReader (new InputStreamReader(System.in));
+        
+        int x, y, z, max;
+        
+        System.out.println("Introdueix x,y,z: ");
+        
+        x = Integer.parseInt(entrada.readLine());
+        y = Integer.parseInt(entrada.readLine());
+        z = Integer.parseInt(entrada.readLine());
+        
+        if ((x>y)&&(x>z))
+            max = x;
         else
-            c = -1;
-        entrada.close();
-        return c;
-    }
-    
+            if (z>y)
+                max = z;
+            else
+                max = y;
+        System.out.println ("El màxim es " + max);
+    } 
 }
