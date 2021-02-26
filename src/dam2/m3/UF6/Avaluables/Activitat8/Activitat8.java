@@ -218,6 +218,10 @@ public class Activitat8 extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_bReiniciarActionPerformed
     
+    private boolean esBuit() {
+     return arrayPanells.equals("X");
+    }
+    
     private void mostraError() {
         JOptionPane.showMessageDialog(null, "Error, no pitjis un panel revelat", "Error Act8", 
                 JOptionPane.ERROR_MESSAGE);
