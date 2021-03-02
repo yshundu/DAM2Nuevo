@@ -55,12 +55,14 @@ public class NauEspacial extends javax.swing.JFrame {
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
     private int numNaus=3;   
+    private int numBales=10;
+    int posicioArray=0;
     Nau[] nau;
-    Bala bala;
+    Bala[] bala;
     Nau nauJugador;
-    int ddX=0;
     public PanelNau(){
         nau = new Nau[numNaus];
+        bala = new Bala[numBales];
         for (int i=0;i<nau.length;i++) {
             Random rand = new Random();
             int velocitat=(rand.nextInt(3)+5)*10;
@@ -81,20 +83,43 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         }
     
     
+    @Override
     public void run() {
         System.out.println("Inici fil repintar");
-        bala = new Bala(3, nauJugador.getX(),nauJugador.getY(), 0, 0, 50);
         while(true) {
             try { Thread.sleep(50);} catch(Exception e) {} // espero 0,1 segons
             System.out.println("Repintant");
             repaint();            
             }                   
         }
-
+    
+    @Override
+        public synchronized void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        for(int y=0; y<nau.length;++y){
+            nau[y].pinta(g);
+        nauJugador.pinta(g);
+            for(int i=0; i<bala.length;i++) {
+                if (bala[i] != null) {
+                   if(bala[i].getY() < 0) {
+                       bala[i] = null;
+                   } else {
+                    if (bala[i].getX() == nau[y].getX()) {
+                         if (bala[i].getY() == nau[y].getY()) {
+                          //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        }
+                    }
+                    bala[i].pinta(g);
+                   }
+                }
+            }
+        }
+     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
+        int ddX;
+        //System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
         if(e.getKeyCode()==65) {
             if(!(nauJugador.getX()<= 0 - nauJugador.getTx())) {
                 ddX=-5;
@@ -106,26 +131,19 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                 nauJugador.setDsx(ddX);
             }
         } else if (e.getKeyCode()==32) {
-            bala.setX(nauJugador.getX());
-            bala.setY(nauJugador.getY());
-            bala.setDsy(-10);
-        }
-        else {
+            //while (i<bala.length) {
+                if (bala[posicioArray]==null) {
+                bala[posicioArray] = new Bala(posicioArray, nauJugador.getX(),nauJugador.getY(), 0, -10, 50);
+                }
+            posicioArray++;
+                if (posicioArray==bala.length) {
+                    posicioArray = 0;
+                }
+            //}
+        } else {
             nauJugador.setDsx(0);
         }
     }
-    public synchronized void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        for(int i=0; i<nau.length;++i){
-            nau[i].pinta(g);
-        nauJugador.pinta(g);
-        }
-        if (bala.getDsy()==0){
-            
-        } else {
-          bala.pinta(g);
-        }
-     }
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -207,7 +225,7 @@ class Nau extends Thread {
         // si arriva als marges ...
         if ( x>= 440 - tx || x<= tx)
             dsx = - dsx;
-        if ( y >= 400 - ty || y<=ty )
+        if ( y >= 490 - ty || y<=ty )
             dsy = - dsy;
         }
     public synchronized void pinta (Graphics g) {
@@ -302,9 +320,6 @@ class Bala extends Thread {
     
     public synchronized void moure (){
         y = y + dsy;
-        if (y<=ty) {
-            
-        }
         }
     public synchronized void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
