@@ -96,24 +96,34 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     @Override
         public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
+        double distancia;
         for(int y=0; y<nau.length;++y){
+           if (nau[y]!=null) {
             nau[y].pinta(g);
+           } 
         nauJugador.pinta(g);
             for(int i=0; i<bala.length;i++) {
-                if (bala[i] != null) {
+                if ((bala[i] != null)&&(nau[y]!=null)) {
                    if(bala[i].getY() < 0) {
                        bala[i] = null;
                    } else {
-                    if (bala[i].getX() == nau[y].getX()) {
-                         if (bala[i].getY() == nau[y].getY()) {
-                          System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        }
-                    }
-                    bala[i].pinta(g);
+                       bala[i].pinta(g);
+                      
+                       distancia = Math.sqrt((bala[i].getX() - nau[y].getX())*(bala[i].getX() - nau[y].getX())
+                               + (bala[i].getY() - nau[y].getY())*(bala[i].getY() - nau[y].getY()));
+                       if (distancia<25) {
+                           nau[y]=null;
+                           bala[i]=null;
+                           numNaus--;
+                           if (numNaus==0) {
+                               System.exit(0);
+                           }
+                       }
                    }
                 }
             }
         }
+        
      }
 
     @Override
@@ -163,6 +173,16 @@ class Nau extends Thread {
     private int dsx,dsy,v;
     private int tx = 10;
     private int ty = 10;
+    private int tv = 10;
+
+    public int getTv() {
+        return tv;
+    }
+
+    public void setTv(int tv) {
+        this.tv = tv;
+    }
+    
 
     public int getY() {
         return y;
