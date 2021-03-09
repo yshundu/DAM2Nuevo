@@ -106,7 +106,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                    } else {
                     if (bala[i].getX() == nau[y].getX()) {
                          if (bala[i].getY() == nau[y].getY()) {
-                          //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                          System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         }
                     }
                     bala[i].pinta(g);
@@ -133,7 +133,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         } else if (e.getKeyCode()==32) {
             //while (i<bala.length) {
                 if (bala[posicioArray]==null) {
-                bala[posicioArray] = new Bala(posicioArray, nauJugador.getX(),nauJugador.getY(), 0, -10, 50);
+                bala[posicioArray] = new Bala(posicioArray, nauJugador.getX()+15,nauJugador.getY(), 0, -10, 50);
                 }
             posicioArray++;
                 if (posicioArray==bala.length) {
