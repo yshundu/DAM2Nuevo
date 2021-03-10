@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class NauEspacial extends javax.swing.JFrame {    
@@ -54,7 +56,8 @@ public class NauEspacial extends javax.swing.JFrame {
 
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
-    private int numNaus=3;   
+    boolean comprovar=false;
+    private int numNaus=10;   
     private int numBales=10;
     int posicioArray=0;
     Nau[] nau;
@@ -97,11 +100,14 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         double distancia;
+        double contacto;
         for(int y=0; y<nau.length;++y){
            if (nau[y]!=null) {
             nau[y].pinta(g);
            } 
+           if (nauJugador!=null) {
         nauJugador.pinta(g);
+           }
             for(int i=0; i<bala.length;i++) {
                 if ((bala[i] != null)&&(nau[y]!=null)) {
                    if(bala[i].getY() < 0) {
@@ -111,16 +117,33 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                       
                        distancia = Math.sqrt((bala[i].getX() - nau[y].getX())*(bala[i].getX() - nau[y].getX())
                                + (bala[i].getY() - nau[y].getY())*(bala[i].getY() - nau[y].getY()));
+                       if (nauJugador!=null) {
+                       contacto = Math.sqrt((nauJugador.getX() - nau[y].getX())*(nauJugador.getX() - nau[y].getX())
+                        + (nauJugador.getY() - nau[y].getY())*(nauJugador.getY() - nau[y].getY()));
+                           if (contacto<30) {
+                           if(!comprovar) {
+                               nauJugador=null;
+                            JOptionPane.showMessageDialog(null, "Quina pena has perdut!", "Game over.", 
+                                JOptionPane.ERROR_MESSAGE);
+                                comprovar = true;
+                                System.exit(0);
+                            }
+                            
+                       }
+                       }
                        if (distancia<25) {
                            nau[y]=null;
                            bala[i]=null;
                            numNaus--;
                            if (numNaus==0) {
-                               System.exit(0);
+                            JOptionPane.showMessageDialog(null, "Felicitats has guanyat!", "Nivell acabat", 
+                                JOptionPane.ERROR_MESSAGE);
+                            System.exit(0);
                            }
                        }
                    }
                 }
+                
             }
         }
         
@@ -130,6 +153,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     public void keyPressed(KeyEvent e) {
         int ddX;
         //System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
+        //Es mouen amb A y D
         if(e.getKeyCode()==65) {
             if(!(nauJugador.getX()<= 0 - nauJugador.getTx())) {
                 ddX=-5;
