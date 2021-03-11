@@ -156,7 +156,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     public void keyPressed(KeyEvent e) {
         int ddX;
         System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
-        //Es mouen amb A y D
+        //Es mouen amb <- y ->
         if(e.getKeyCode()==37) {
             if(!(nauJugador.getX()<= 0 - nauJugador.getTx())) {
                 ddX=-5;
