@@ -5,6 +5,8 @@
  */
 package dam2.m3.UF6.Avaluables.Activitat7Grafic;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Alumne
@@ -12,6 +14,13 @@ package dam2.m3.UF6.Avaluables.Activitat7Grafic;
 public class Interfaz extends javax.swing.JFrame {
        Fitxa[][] matriuTauler = new Fitxa[8][8];
 	Tauler tauler = new Tauler(matriuTauler);
+       //Variables
+	int cont = 0;
+	int origenFila = -1;
+	int origenColumna = -1;
+	int destiFila = -1;
+	int destiColumna = -1;
+	boolean acabarPartida = false;
     /**
      * Creates new form Interfaz
      */
@@ -21,6 +30,13 @@ public class Interfaz extends javax.swing.JFrame {
         //Inicialitzem tauler
 	tauler.omplirTauler();
         omplirTaulerAjedrez();
+        if(returnColor(cont) == 'B') {
+           JOptionPane.showMessageDialog(null, "Juguen blanques! ", "Start game", 
+        JOptionPane.ERROR_MESSAGE); 
+	}else {
+            JOptionPane.showMessageDialog(null, "Juguen negres! ", "Start game", 
+        JOptionPane.ERROR_MESSAGE); 
+            }
     }
 
     /**
@@ -123,11 +139,36 @@ public class Interfaz extends javax.swing.JFrame {
             for (int j=0; j<tablaAjedrez.getRowCount();j++) {
                 if (matriuTauler[i][j] != null) {
                     tablaAjedrez.setValueAt(matriuTauler[i][j], i, j);
-                    //System.out.print(matriuTauler[i][j].getTipo() + " ");
                 }
             }
         }
     }
+    
+    public int obtenirFilaClicada(){
+        int fila;
+        fila = tablaAjedrez.getSelectedRow();
+        
+        return fila;
+    }
+    
+    public int obtenirColumnaClicada(){
+        int columna;
+        columna = tablaAjedrez.getSelectedColumn();
+        
+        return columna;
+        
+    }
+    
+	public static char returnColor(int cont) {
+		char color = ' ';
+		
+		if(cont % 2 == 0) {
+			color = 'B';
+		}else {
+			color = 'n';
+		}
+		return color;
+	}
     /**
      * @param args the command line arguments
      */
@@ -168,4 +209,5 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTable tablaAjedrez;
     // End of variables declaration//GEN-END:variables
+
 }
