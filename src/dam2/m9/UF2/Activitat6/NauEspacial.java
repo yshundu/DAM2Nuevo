@@ -9,8 +9,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 public class NauEspacial extends javax.swing.JFrame {    
@@ -56,9 +54,13 @@ public class NauEspacial extends javax.swing.JFrame {
 
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
+    //Comprovador que utilitzem  per fer de error
     boolean comprovar=false;
-    private int numNaus=10;   
+    //numero de naus
+    private int numNaus=10;
+    //numero de bales (Recarrega)
     private int numBales=10;
+    //Posicio del array en aquell moment, es reseteja si arriba al final
     int posicioArray=0;
     Nau[] nau;
     Bala[] bala;
@@ -114,9 +116,10 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                        bala[i] = null;
                    } else {
                        bala[i].pinta(g);
-                      
+                      //Calculem si hi ha contacte entre la bala i nau enemiga
                        distancia = Math.sqrt((bala[i].getX() - nau[y].getX())*(bala[i].getX() - nau[y].getX())
                                + (bala[i].getY() - nau[y].getY())*(bala[i].getY() - nau[y].getY()));
+                       //Si no es null, calculem el contacte de nauJugador amb naus enemigues
                        if (nauJugador!=null) {
                        contacto = Math.sqrt((nauJugador.getX() - nau[y].getX())*(nauJugador.getX() - nau[y].getX())
                         + (nauJugador.getY() - nau[y].getY())*(nauJugador.getY() - nau[y].getY()));
@@ -152,20 +155,21 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int ddX;
-        //System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
+        System.out.println("Key pressed code =" + e.getKeyCode() + ", char="+ e.getKeyChar());
         //Es mouen amb A y D
-        if(e.getKeyCode()==65) {
+        if(e.getKeyCode()==37) {
             if(!(nauJugador.getX()<= 0 - nauJugador.getTx())) {
                 ddX=-5;
                 nauJugador.setDsx(ddX);
             }
-        } else if (e.getKeyCode()==68) {
+        } else if (e.getKeyCode()==39) {
             if(!(nauJugador.getX()>= 440 - nauJugador.getTx())) {
                 ddX=5;
                 nauJugador.setDsx(ddX);
             }
         } else if (e.getKeyCode()==32) {
             //while (i<bala.length) {
+            //Controlador de bales.
                 if (bala[posicioArray]==null) {
                 bala[posicioArray] = new Bala(posicioArray, nauJugador.getX()+15,nauJugador.getY(), 0, -10, 50);
                 }
