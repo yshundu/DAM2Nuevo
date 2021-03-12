@@ -25,8 +25,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="bReiniciar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="juguen_color" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="bReiniciar" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="tablaAjedrez" min="-2" pref="315" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -47,7 +51,10 @@
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="tablaAjedrez" min="-2" pref="130" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="bReiniciar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="bReiniciar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="juguen_color" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -135,6 +142,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Reiniciar partida"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bReiniciarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="juguen_color">
     </Component>
   </SubComponents>
 </Form>

@@ -22,7 +22,7 @@ public class Exercici3 {
         //Col·lecció
         Collection col = null;
         //URI col·lecció
-        String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/Proves";
+        String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/";
         //Usuari
         String usu = "admin";
         //Contrasenya
@@ -58,9 +58,11 @@ public class Exercici3 {
             System.out.println("Error en llegir");
             e.printStackTrace();
         }
+        
         int dep = Integer.parseInt(s);
+        
         XPathQueryService servei = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-        ResourceSet result = servei.query("for $em in /EMPLEADOS/EMP_ROW/[DEPT_NO=20] return $em");
+        ResourceSet result = servei.query("for $em in /departamentos/DEP_ROW[DEPT_NO=20] return $em");
         
         //Recorrer les dades del recurs
         ResourceIterator i;

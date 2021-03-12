@@ -5,38 +5,27 @@
  */
 package dam2.m3.UF6.Avaluables.Activitat7Grafic;
 
-import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Alumne
  */
 public class Interfaz extends javax.swing.JFrame {
-       Fitxa[][] matriuTauler = new Fitxa[8][8];
-	Tauler tauler = new Tauler(matriuTauler);
        //Variables
-	int cont = 0;
+	int chivato = 0;
 	int origenFila = -1;
 	int origenColumna = -1;
 	int destiFila = -1;
 	int destiColumna = -1;
-	boolean acabarPartida = false;
+        Fitxa fitxa, fitxaDesti;
+	boolean mValid, tornBlanc;
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
-        //Matriz tablero
         //Inicialitzem tauler
-	tauler.omplirTauler();
         omplirTaulerAjedrez();
-        if(returnColor(cont) == 'B') {
-           JOptionPane.showMessageDialog(null, "Juguen blanques! ", "Start game", 
-        JOptionPane.ERROR_MESSAGE); 
-	}else {
-            JOptionPane.showMessageDialog(null, "Juguen negres! ", "Start game", 
-        JOptionPane.ERROR_MESSAGE); 
-            }
     }
 
     /**
@@ -51,6 +40,7 @@ public class Interfaz extends javax.swing.JFrame {
         tablaAjedrez = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         bReiniciar = new javax.swing.JButton();
+        juguen_color = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +78,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setText("El juego del Ajedrez");
 
         bReiniciar.setText("Reiniciar partida");
+        bReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReiniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,8 +90,11 @@ public class Interfaz extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(96, 96, 96)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bReiniciar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(juguen_color)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bReiniciar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(tablaAjedrez, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -112,7 +110,9 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(tablaAjedrez, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(bReiniciar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bReiniciar)
+                    .addComponent(juguen_color))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -131,44 +131,55 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaAjedrezMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAjedrezMouseClicked
-        // TODO add your handling code here:
+        int columna = obtenirColumnaClicada();
+        int fila = obtenirFilaClicada(); 
+        
     }//GEN-LAST:event_tablaAjedrezMouseClicked
+
+    private void bReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReiniciarActionPerformed
+        //Ho omplim de nou.
+        omplirTaulerAjedrez();
+    }//GEN-LAST:event_bReiniciarActionPerformed
     
     private void omplirTaulerAjedrez() {
-        for (int i=0;i<tablaAjedrez.getColumnCount();i++) {
-            for (int j=0; j<tablaAjedrez.getRowCount();j++) {
-                if (matriuTauler[i][j] != null) {
-                    tablaAjedrez.setValueAt(matriuTauler[i][j], i, j);
-                }
-            }
+        tornBlanc = true;
+        DefaultTableModel model = new DefaultTableModel();
+        Object fitxesBlanques[] = {"T", "C", "A", "Q", "K", "A", "C", "T"};
+        Object peoBlanques[] = {"P", "P", "P", "P", "P", "P", "P", "P"};
+        Object filaBuit[] =     {"·", "·", "·", "·", "·", "·", "·", "·"}; 
+        Object fitxesNegres[] = {"t", "c", "a", "q", "k", "a", "c", "t"};
+        Object peoNegres[] = {"p", "p", "p", "p", "p", "p", "p", "p",};
+        
+        //Creem les columnes.
+        for (int i = 0; i < 8; i++) {
+            model.addColumn("");
         }
+        model.addRow(fitxesNegres);
+        model.addRow(peoNegres);
+        model.addRow(filaBuit);
+        model.addRow(filaBuit);
+        model.addRow(filaBuit);
+        model.addRow(filaBuit);
+        model.addRow(peoBlanques);
+        model.addRow(fitxesBlanques);
+
+        tablaAjedrez.setModel(model);
+        tablaAjedrez.setDefaultEditor(Object.class, null);
+        origenFila = -1;
+        origenColumna = -1;
+        destiFila = -1;
+        destiColumna = -1;
     }
     
     public int obtenirFilaClicada(){
-        int fila;
-        fila = tablaAjedrez.getSelectedRow();
-        
-        return fila;
+        return tablaAjedrez.getSelectedRow();
     }
     
     public int obtenirColumnaClicada(){
-        int columna;
-        columna = tablaAjedrez.getSelectedColumn();
-        
-        return columna;
-        
+    return tablaAjedrez.getSelectedColumn(); 
     }
     
-	public static char returnColor(int cont) {
-		char color = ' ';
-		
-		if(cont % 2 == 0) {
-			color = 'B';
-		}else {
-			color = 'n';
-		}
-		return color;
-	}
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +218,7 @@ public class Interfaz extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bReiniciar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel juguen_color;
     private javax.swing.JTable tablaAjedrez;
     // End of variables declaration//GEN-END:variables
 
